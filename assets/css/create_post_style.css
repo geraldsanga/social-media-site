@@ -1,0 +1,10 @@
+.create-form {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+    margin: auto;
+}
+
+.submit-button{
+    max-width: 200px;
+}

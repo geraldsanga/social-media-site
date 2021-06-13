@@ -54,7 +54,18 @@ if(isset($_POST["register_button"])){
       if(preg_match('/[^A-Za-z0-9]/', $user_name)){
          echo("ouwh man use a different username without special characters please..will you");
       }else{
+      $result = $mysqli->query("SELECT username FROM User WHERE username='$username'") or die($mysqli->error);
+
+      //Count the number of rows returned
+      $num_rows = mysqli_num_rows($result);
+      if($num_rows > 0) {
+         echo("you cant use the username: ".$useranme. " since it's already in use");
+         $_SESSION['msg_type'] = "danger";
+         $_SESSION['message'] = "The username is already in use";
+      }else{
+         echo("The variable user_name_is_valid has been set to true");
          $user_name_is_valid = true;
+      }
       }
    }else{
       $_SESSION['msg_type'] = "danger";
@@ -71,9 +82,7 @@ if(isset($_POST["register_button"])){
          echo("you cant use the email: ".$email. " since it's already in use");
          $_SESSION['msg_type'] = "danger";
          $_SESSION['message'] = "The email is already in use";
-
          return true;
-
       }else{
          return true;
       }

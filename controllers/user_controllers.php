@@ -2,9 +2,9 @@
 
 require_once "../config/config.php";
 
+// HANDLING USER REGISTRATION
 $mysqli = new mysqli("localhost", "root", "","social") or die(mysqli_error($mysqli));
 
-// REGISTER CONTROLLER
 if(isset($_POST["register_button"])){
    $first_name = $_POST["first_name"];
    $last_name = $_POST["last_name"];
@@ -13,13 +13,13 @@ if(isset($_POST["register_button"])){
    $password1 = $_POST["password_1"];
    $password2 = $_POST["password_2"];
 
-   // VALIDATIONS
+   // validating_variables
    $password_is_valid = false;
    $first_name_is_valid = false;
    $last_name_is_valid = false;
    $user_name_is_valid = false;
    
-   //Check if the two passwords match and length of the password
+   //validation 1: check if the two passwords match and length of the password
    if($password1 == $password2){
       if(strlen($password2) > 5){
          $password_is_valid = true;
@@ -33,7 +33,7 @@ if(isset($_POST["register_button"])){
       $_SESSION['message'] = "The two passwords do not match";
    }
 
-   //Check length of the first name
+   //validation 2: check length of the first name
    if(strlen($first_name) > 3 || strlen($first_name < 25)){
       $first_name_is_valid = true;
 
@@ -42,7 +42,7 @@ if(isset($_POST["register_button"])){
       $_SESSION['message'] = "Names must be between 3 and 25 characters";
    }
 
-   //Check length of the last name
+   //validation 3: check length of the last name
    if(strlen($last_name) > 3 || strlen($last_name < 25)){
       $last_name_is_valid = true;
    }else{
@@ -50,13 +50,12 @@ if(isset($_POST["register_button"])){
       $_SESSION['message'] = "Names must be between 3 and 25 characters";
    }
 
-   //Check length of the user name
+   //validation 4:  length of the user name and it's existance int he database
    if(strlen($user_name) > 2 || strlen($user_name < 25)){
       if(preg_match('/[^A-Za-z0-9]/', $user_name)){
       }else{
       $result = $mysqli->query("SELECT username FROM User WHERE username='$user_name'") or die($mysqli->error);
 
-      //Count the number of rows returned
       $num_rows = mysqli_num_rows($result);
       if($num_rows > 0) {
          $_SESSION['msg_type'] = "danger";
@@ -70,11 +69,9 @@ if(isset($_POST["register_button"])){
       $_SESSION['message'] = "User Names must be between 2 and 25 characters";
    }
 
-   //Check if email exists
+   //validation 5: check email's existance in the database
    function email_is_available($email, $mysqli){
       $result = $mysqli->query("SELECT email FROM User WHERE email='$email'") or die($mysqli->error);
-   
-      //Count the number of rows returned
       $num_rows = mysqli_num_rows($result);
       if($num_rows > 0) {
          echo("you cant use the email: ".$email. " since it's already in use");

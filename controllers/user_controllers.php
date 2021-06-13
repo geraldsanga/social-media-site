@@ -89,8 +89,9 @@ if(isset($_POST["register_button"])){
    if($first_name_is_valid && $last_name_is_valid && $user_name_is_valid && $password_is_valid && $email_is_available){
       $hashed_password = md5($password2);
       $mysqli->query("INSERT INTO User (first_name, last_name, username, email, user_password) VALUES ('$first_name', '$last_name', '$user_name', '$email', '$hashed_password')") or die($mysqli->error);
+      $_SESSION['msg_type'] = "success";
+      $_SESSION['message'] = "Account is successfully Created";
       header("location: ../index.php");
-   
    }
    
 }

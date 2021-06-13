@@ -4,7 +4,6 @@ require_once "../config/config.php";
 
 $mysqli = new mysqli("localhost", "root", "","social") or die(mysqli_error($mysqli));
 
-
 // REGISTER CONTROLLER
 if(isset($_POST["register_button"])){
    $first_name = $_POST["first_name"];
@@ -13,7 +12,6 @@ if(isset($_POST["register_button"])){
    $email = $_POST["email"];
    $password1 = $_POST["password_1"];
    $password2 = $_POST["password_2"];
-
 
    // VALIDATIONS
    $password_is_valid = false;
@@ -62,8 +60,6 @@ if(isset($_POST["register_button"])){
       $_SESSION['msg_type'] = "danger";
       $_SESSION['message'] = "User Names must be between 2 and 25 characters";
    }
-
-   
 
    //Check if email exists
    function email_is_available($email, $mysqli){

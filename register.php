@@ -28,6 +28,10 @@ require 'config/config.php';
 
 		';
 	}
+	// Stop the user from accessing the register page if he is logged in
+	if(isset($_SESSION['user_logged_in'])){
+		header('location: index.php');
+	}
 	?>
 
 	<div class="wrapper">

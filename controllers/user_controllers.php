@@ -12,7 +12,10 @@ if(isset($_POST["register_button"])){
    $email = $_POST["email"];
    $password1 = $_POST["password_1"];
    $password2 = $_POST["password_2"];
-
+   $_SESSION['first_name'] = $first_name;
+   $_SESSION['last_name'] = $last_name;
+   $_SESSION['user_name'] = $user_name;
+   $_SESSION['email'] = $email;
    // validating_variables
    $password_is_valid = false;
    $first_name_is_valid = false;
@@ -25,12 +28,14 @@ if(isset($_POST["register_button"])){
          $password_is_valid = true;
       }else{
          $_SESSION['msg_type'] = "danger";
-         $_SESSION['message'] = "The password is too short";
+         $_SESSION['register_error_message'] = "The password is too short";
+         header("location: ../register.php");
       }
       
    }else{
       $_SESSION['msg_type'] = "danger";
-      $_SESSION['message'] = "The two passwords do not match";
+      $_SESSION['register_error_message'] = "The two passwords do not match";
+      header("location: ../register.php");
    }
 
    //validation 2: check length of the first name
@@ -39,7 +44,8 @@ if(isset($_POST["register_button"])){
 
    }else{
       $_SESSION['msg_type'] = "danger";
-      $_SESSION['message'] = "Names must be between 3 and 25 characters";
+      $_SESSION['register_error_message'] = "Frist Name must be between 3 and 25 characters";
+      header("location: ../register.php");
    }
 
    //validation 3: check length of the last name
@@ -47,7 +53,8 @@ if(isset($_POST["register_button"])){
       $last_name_is_valid = true;
    }else{
       $_SESSION['msg_type'] = "danger";
-      $_SESSION['message'] = "Names must be between 3 and 25 characters";
+      $_SESSION['register_error_message'] = "Last Name must be between 3 and 25 characters";
+      header("location: ../register.php");
    }
 
    //validation 4:  length of the user name and it's existance int he database
@@ -59,14 +66,16 @@ if(isset($_POST["register_button"])){
       $num_rows = mysqli_num_rows($result);
       if($num_rows > 0) {
          $_SESSION['msg_type'] = "danger";
-         $_SESSION['message'] = "The username is already in use";
+         $_SESSION['register_error_message'] = "The username is already in use";
+         header("location: ../register.php");
       }else{
          $user_name_is_valid = true;
       }
       }
    }else{
       $_SESSION['msg_type'] = "danger";
-      $_SESSION['message'] = "User Names must be between 2 and 25 characters";
+      $_SESSION['register_error_message'] = "User Names must be between 2 and 25 characters";
+      header("location: ../register.php");
    }
 
    //validation 5: check email's existance in the database
@@ -76,7 +85,7 @@ if(isset($_POST["register_button"])){
       if($num_rows > 0) {
          echo("you cant use the email: ".$email. " since it's already in use");
          $_SESSION['msg_type'] = "danger";
-         $_SESSION['message'] = "The email is already in use";
+         $_SESSION['register_error_message'] = "The email is already in use";
          return false;
       }else{
          return true;
@@ -90,7 +99,8 @@ if(isset($_POST["register_button"])){
       $hashed_password = md5($password2);
       $mysqli->query("INSERT INTO User (first_name, last_name, username, email, user_password) VALUES ('$first_name', '$last_name', '$user_name', '$email', '$hashed_password')") or die($mysqli->error);
       $_SESSION['msg_type'] = "success";
-      $_SESSION['message'] = "Account is successfully Created";
+      $_SESSION['register_success_message'] = "Account is successfully Created";
+      $_SESSION['user_logged_in'] = true;
       header("location: ../index.php");
    }
    

@@ -1,7 +1,5 @@
 <?php  
 require 'config/config.php';
-require 'includes/form_handlers/register_handler.php';
-require 'includes/form_handlers/login_handler.php';
 ?>
 
 
@@ -9,6 +7,7 @@ require 'includes/form_handlers/login_handler.php';
 <head>
 	<title>Ndugu Jamaa!</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/register_style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="assets/js/register.js"></script>
 </head>
@@ -16,7 +15,7 @@ require 'includes/form_handlers/login_handler.php';
 
 	<?php  
 
-	if(isset($_POST['register_button'])) {
+	if(isset($_POST['register_button']) || isset($_SESSION['register_error_message'])) {
 		echo '
 		<script>
 
@@ -29,8 +28,6 @@ require 'includes/form_handlers/login_handler.php';
 
 		';
 	}
-
-
 	?>
 
 	<div class="wrapper">
@@ -58,15 +55,22 @@ require 'includes/form_handlers/login_handler.php';
 			</div>
 
 			<div id="second">
-
+				<?php if(isset($_SESSION['register_error_message'])):?>
+					<div class="alert alert-danger mx-auto">
+						<?php
+							echo $_SESSION['register_error_message'];
+							unset($_SESSION['register_error_message']);
+						?>
+					</div>
+				<?php endif ?>
 				<form action="controllers/user_controllers.php" method="POST">
-					<input type="text" name="first_name" placeholder="First Name" value="" required>
+					<input type="text" name="first_name" placeholder="First Name" value="<?php if(isset($_SESSION['first_name'])){ echo $_SESSION['first_name'];}?>" required>
 					<br>
-					<input type="text" name="last_name" placeholder="Last Name" value="" required>
+					<input type="text" name="last_name" placeholder="Last Name" value="<?php if(isset($_SESSION['last_name'])){ echo $_SESSION['last_name'];}?>" required>
 					<br>
-					<input type="text" name="user_name" placeholder="User Name" value="" required>
+					<input type="text" name="user_name" placeholder="User Name" value="<?php if(isset($_SESSION['user_name'])){ echo $_SESSION['user_name'];}?>" required>
 					<br>
-					<input type="email" name="email" placeholder="Email" value="" required>
+					<input type="email" name="email" placeholder="Email" value="<?php if(isset($_SESSION['email'])){ echo $_SESSION['email'];}?>" required>
 					<br>
 					<input type="password" name="password_1" placeholder="Password" required>
 					<br>
@@ -82,6 +86,6 @@ require 'includes/form_handlers/login_handler.php';
 
 	</div>
 
-
+<script src="assets/js/bootstrap.min.js"></script>
 </body>
 </html>

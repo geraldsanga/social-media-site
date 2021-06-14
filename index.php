@@ -18,7 +18,7 @@ require 'config/config.php';
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="#!">Social Media Site</a>
+                <a class="navbar-brand" href="index.php">Social Media Site</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -33,6 +33,14 @@ require 'config/config.php';
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
                 <div class="text-center my-5">
+                <?php if(isset($_SESSION['register_success_message'])):?>
+					<div class="alert alert-success mx-auto">
+						<?php
+							echo('<p>' . $_SESSION['register_success_message'] . '</p>');
+							unset($_SESSION['register_success_message']);
+						?>
+					</div>
+				<?php endif ?>
                     <h1 class="fw-bolder">Welcome to Social Media Site!</h1>
                     <p class="lead mb-0">There is no place like here</p>
                 </div>

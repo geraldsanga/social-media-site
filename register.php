@@ -45,7 +45,7 @@ require 'config/config.php';
 			<br>
 			<div id="first">
 
-				<form action="user_controllers.php" method="POST">
+				<form action="register_user_controller.php" method="POST">
 					<input type="email" name="log_email" placeholder="Email Address" value="" required>
 					<br>
 					<input type="password" name="log_password" placeholder="Password">

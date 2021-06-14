@@ -1,5 +1,35 @@
 <?php  
 require 'config/config.php';
+if(isset($_POST['register_button']) || isset($_SESSION['register_error_message'])) {
+	echo '
+	<script>
+
+	$(document).ready(function() {
+		$("#first").hide();
+		$("#second").show();
+	});
+
+	</script>
+
+	';
+}
+if(isset($_SESSION["login_error_message"])){
+	echo '
+	<script>
+
+	$(document).ready(function() {
+		$("#first").show();
+		$("#second").hide();
+	});
+
+	</script>
+
+	';
+}
+// Stop the user from accessing the register page if he is logged in
+if(isset($_SESSION['user_logged_in'])){
+	header('location: index.php');
+}
 ?>
 
 
@@ -13,27 +43,6 @@ require 'config/config.php';
 </head>
 <body>
 
-	<?php  
-
-	if(isset($_POST['register_button']) || isset($_SESSION['register_error_message'])) {
-		echo '
-		<script>
-
-		$(document).ready(function() {
-			$("#first").hide();
-			$("#second").show();
-		});
-
-		</script>
-
-		';
-	}
-	// Stop the user from accessing the register page if he is logged in
-	if(isset($_SESSION['user_logged_in'])){
-		header('location: index.php');
-	}
-	?>
-
 	<div class="wrapper">
 
 		<div class="login_box">
@@ -44,11 +53,18 @@ require 'config/config.php';
 			</div>
 			<br>
 			<div id="first">
-
-				<form action="register_user_controller.php" method="POST">
-					<input type="email" name="log_email" placeholder="Email Address" value="" required>
+				<?php if(isset($_SESSION['login_error_message'])):?>
+					<div class="alert alert-danger mx-auto">
+						<?php
+							echo $_SESSION['login_error_message'];
+							unset($_SESSION['login_error_message']);
+						?>
+					</div>
+				<?php endif ?>
+				<form action="controllers/login.php" method="POST">
+					<input type="email" name="email" placeholder="Email Address" value="" required>
 					<br>
-					<input type="password" name="log_password" placeholder="Password">
+					<input type="password" name="password" placeholder="Password">
 					<br>
 					<input type="submit" name="login_button" value="Login">
 					<br>
@@ -67,7 +83,7 @@ require 'config/config.php';
 						?>
 					</div>
 				<?php endif ?>
-				<form action="controllers/user_controllers.php" method="POST">
+				<form action="controllers/register_user.php" method="POST">
 					<input type="text" name="first_name" placeholder="First Name" value="<?php if(isset($_SESSION['first_name'])){ echo $_SESSION['first_name'];}?>" required>
 					<br>
 					<input type="text" name="last_name" placeholder="Last Name" value="<?php if(isset($_SESSION['last_name'])){ echo $_SESSION['last_name'];}?>" required>

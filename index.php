@@ -1,6 +1,11 @@
 <?php  
 require 'config/config.php';
 
+if(isset($_SESSION['user_logged_in'])){
+    
+}else{
+    header("location: register.php");
+}
 ?>
 <html lang="en">
     <head>
@@ -33,11 +38,16 @@ require 'config/config.php';
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
                 <div class="text-center my-5">
-                <?php if(isset($_SESSION['register_success_message'])):?>
+                <?php if(isset($_SESSION['register_success_message']) || isset($_SESSION['login_success_message'])):?>
 					<div class="alert alert-success mx-auto">
 						<?php
-							echo('<p>' . $_SESSION['register_success_message'] . '</p>');
-							unset($_SESSION['register_success_message']);
+                            if(isset($_SESSION['register_success_message'])){
+                                echo $_SESSION['register_success_message'];
+                                unset($_SESSION['register_success_message']);
+                            }else if(isset($_SESSION['login_success_message'])){
+                                echo $_SESSION['login_success_message'];
+                                unset($_SESSION['login_success_message']);
+                            }
 						?>
 					</div>
 				<?php endif ?>

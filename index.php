@@ -60,7 +60,8 @@ if(isset($_SESSION['user_logged_in'])){
         <div class="container">
             <div class="row justify-content-center">
             <?php $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 
-                  $result = $mysqli->query("SELECT * FROM Post") or die($mysqli->error);
+                  $result = $mysqli->query("SELECT * FROM Post ORDER BY id DESC") or die($mysqli->error);
+                  $email = $_SESSION['email'];
             ?>
 
                 <!-- Blog entries-->

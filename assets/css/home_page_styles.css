@@ -49,6 +49,10 @@
   }
 }
 
+.alert {
+  width:50px;    
+}
+
 body {
   margin: 0;
   font-family: var(--bs-font-sans-serif);

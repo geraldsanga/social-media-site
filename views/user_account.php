@@ -48,8 +48,8 @@
 									<h4><?php echo $_SESSION['first_name']. ' ' . $_SESSION['last_name']?></h4>
 									<?php endif; ?>
 									<p class="text-muted font-size-sm"><?php if($_SESSION['address']){echo $_SESSION['address'];}?></p>
-									<button class="btn btn-primary">Follow</button>
-									<button class="btn btn-outline-primary">Message</button>
+									<a class="btn btn-warning" href="#" role="button">Deactivate Accoount</a>
+									<a class="btn btn-danger" href="../controllers/logout.php" role="button">LogOut</a>
 								</div>
 							</div>
 							<hr class="my-4">
@@ -163,8 +163,6 @@
 				</div>
 			</div>
 		</div>
-		<a class="btn btn-danger" href="../controllers/logout.php" role="button">LogOut</a>
-
 	</div>
     
         <!-- Footer-->

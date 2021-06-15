@@ -18,6 +18,7 @@ if(isset($_POST["login_button"])){
         while($row = $result->fetch_assoc()){
             $hashed_password = $row["user_password"];
             $_SESSION['user_id'] = $row["id"];
+            $_SESSION['number_of_posts'] = $row["number_of_posts"];
             $_SESSION['first_name'] = $row["first_name"];
             $_SESSION['last_name'] = $row["last_name"];
             $_SESSION['user_name'] = $row["username"];

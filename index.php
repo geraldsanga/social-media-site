@@ -47,7 +47,7 @@ if(isset($_SESSION['user_logged_in'])){
         <div class="container">
             <div class="row justify-content-center">
             <?php $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 
-                  $result = $mysqli->query("SELECT * FROM Post ORDER BY id DESC") or die($mysqli->error);
+                  $result = $mysqli->query("SELECT * FROM Post JOIN User ON Post.user_id=User.id ORDER BY Post.id DESC") or die($mysqli->error);
                   $email = $_SESSION['email'];
             ?>
             <?php if(isset($_SESSION['login_success_message'])):?>
@@ -68,6 +68,7 @@ if(isset($_SESSION['user_logged_in'])){
                         <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
                         <div class="card-body">
                             <div class="small text-muted"><?php echo $row['date_created'];?></div>
+                            <div class="small">Posted by: <b><?php echo $row['username'];?></b></div>
                             <p class="card-text"><?php echo $row['caption'];?></p>
                             <a class="btn btn-primary" href="#!">Read more →</a>
                         </div>

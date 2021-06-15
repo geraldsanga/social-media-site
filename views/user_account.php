@@ -69,6 +69,15 @@
 								</div>
 							</div>
 							<hr class="my-4">
+							<ul>
+							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+								<h5 class="mb-2">Number of Posts: <?php if($_SESSION['number_of_posts']){echo $_SESSION['number_of_posts'];}else{echo 0;}?></h6>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+								<h5 class="mb-2">Number of LIkes: <?php if($_SESSION['number_of_likes']){echo $_SESSION['number_of_likes'];}else{echo 0;}?></h6>
+							</li>				
+							</ul>
+							<hr class="my-4">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 									<h6 class="mb-2">I am also available via:</h6>
@@ -115,6 +124,15 @@
 								</div>
 								<div class="col-sm-9 text-secondary">
 								<input type="text" class="form-control" name="email" value="<?php if($_SESSION['email']){echo $_SESSION['email'];}?>" placeholder="Eg: neema@mail.com" required>
+								<input type="text" name="user_id" class="form-control" value="<?php if($_SESSION['user_id']){echo $_SESSION['user_id'];}?>" hidden>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Username</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+								<input type="text" class="form-control" name="email" value="<?php if($_SESSION['user_name']){echo $_SESSION['user_name'];}?>" placeholder="Eg: neema@mail.com" required>
 								<input type="text" name="user_id" class="form-control" value="<?php if($_SESSION['user_id']){echo $_SESSION['user_id'];}?>" hidden>
 								</div>
 							</div>

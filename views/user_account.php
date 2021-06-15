@@ -37,6 +37,22 @@
         <!-- Page content-->
     <div class="container mt-5">
 		<div class="main-body">
+		<?php if(isset($_SESSION['account_update_sucess'])):?>
+		<div class="alert alert-success text-center" sytle="width:100%">
+			<?php 
+				echo $_SESSION['account_update_sucess'];
+				unset($_SESSION['account_update_sucess']);
+			?>
+		</div>
+		<?php endif ?>
+		<?php if(isset($_SESSION['update_error_message'])):?>
+		<div class="alert alert-danger text-center" sytle="width:100%">
+		<?php 
+			echo $_SESSION['update_error_message'];
+			unset($_SESSION['update_error_message']);
+		?>
+		</div>
+		<?php endif ?>
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="card">
@@ -48,36 +64,42 @@
 									<h4><?php echo $_SESSION['first_name']. ' ' . $_SESSION['last_name']?></h4>
 									<?php endif; ?>
 									<p class="text-muted font-size-sm"><?php if($_SESSION['address']){echo $_SESSION['address'];}?></p>
-									<button class="btn btn-primary">Follow</button>
-									<button class="btn btn-outline-primary">Message</button>
+									<a class="btn btn-warning" href="#" role="button">Deactivate Accoount</a>
+									<a class="btn btn-danger" href="../controllers/logout.php" role="button">LogOut</a>
 								</div>
 							</div>
+							<hr class="my-4">
+							<ul>
+							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+								<h5 class="mb-2">Number of Posts: <?php if($_SESSION['number_of_posts']){echo $_SESSION['number_of_posts'];}else{echo 0;}?></h6>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+								<h5 class="mb-2">Number of LIkes: <?php if($_SESSION['number_of_likes']){echo $_SESSION['number_of_likes'];}else{echo 0;}?></h6>
+							</li>				
+							</ul>
 							<hr class="my-4">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 									<h6 class="mb-2">I am also available via:</h6>
 								</li>
 								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-									<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github me-2 icon-inline"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>Github</h6>
-									<span class="text-secondary">bootdey</span>
-								</li>
-								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 									<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter me-2 icon-inline text-info"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Twitter</h6>
-									<span class="text-secondary">@bootdey</span>
+									<span class="text-secondary"><?php if(isset($_SESSION['twitter_username'])){ echo $_SESSION['twitter_username'];}?></span>
 								</li>
 								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 									<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram me-2 icon-inline text-danger"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>Instagram</h6>
-									<span class="text-secondary">bootdey</span>
+									<span class="text-secondary"><?php if(isset($_SESSION['instagram_username'])){ echo $_SESSION['instagram_username'];}?></span>
 								</li>
 								<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 									<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook me-2 icon-inline text-primary"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Facebook</h6>
-									<span class="text-secondary">bootdey</span>
+									<span class="text-secondary"><?php if(isset($_SESSION['facebook_username'])){ echo $_SESSION['facebook_username'];}?></span>
 								</li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-8">
+				<form action="../controllers/update_info.php" method="POST">
 					<div class="card">
 						<div class="card-body">
 							<div class="row mb-3">
@@ -85,23 +107,33 @@
 									<h6 class="mb-0">First Name</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php if($_SESSION['first_name']){echo $_SESSION['first_name'];}?>" placeholder="Enter First Name">
+									<input type="text" class="form-control" name="first_name" value="<?php if($_SESSION['first_name']){echo $_SESSION['first_name'];}?>" placeholder="Enter First Name" required>
 								</div>
 							</div>
-              <div class="row mb-3">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">Last Name</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  <input type="text" class="form-control" value="<?php if($_SESSION['last_name']){echo $_SESSION['last_name'];}?>" placeholder="Enter Last Name">
-                </div>
-              </div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+								<h6 class="mb-0">Last Name</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+								<input type="text" class="form-control" name="last_name" value="<?php if($_SESSION['last_name']){echo $_SESSION['last_name'];}?>" placeholder="Enter Last Name" required>
+								</div>
+							</div>
 							<div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Email</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php if($_SESSION['email']){echo $_SESSION['email'];}?>" placeholder="Eg: neema@mail.com">
+								<input type="text" class="form-control" name="email" value="<?php if($_SESSION['email']){echo $_SESSION['email'];}?>" placeholder="Eg: neema@mail.com" required>
+								<input type="text" name="user_id" class="form-control" value="<?php if($_SESSION['user_id']){echo $_SESSION['user_id'];}?>" hidden>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Username</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+								<input type="text" class="form-control" name="email" value="<?php if($_SESSION['user_name']){echo $_SESSION['user_name'];}?>" placeholder="Eg: neema@mail.com" required>
+								<input type="text" name="user_id" class="form-control" value="<?php if($_SESSION['user_id']){echo $_SESSION['user_id'];}?>" hidden>
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -109,7 +141,7 @@
 									<h6 class="mb-0">Phone</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php if($_SESSION['phone_number']){echo $_SESSION['phone_number'];}?>" placeholder="Eg: +255 623 095 550">
+									<input type="text" name="phone_number" class="form-control" value="<?php if($_SESSION['phone_number']){echo $_SESSION['phone_number'];}?>" placeholder="Eg: +255 623 095 550" required>
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -117,54 +149,45 @@
 									<h6 class="mb-0">Address</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php if($_SESSION['address']){echo $_SESSION['address'];}?>" placeholder="Eg: Machava, Kigamboni, Dar es Salaam">
+									<input type="text" class="form-control" name="address" value="<?php if($_SESSION['address']){echo $_SESSION['address'];}?>" placeholder="Eg: Machava, Kigamboni, Dar es Salaam" required>
 								</div>
 							</div>
-              <div class="row mb-3">
+              				<div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Twitter</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php if($_SESSION['twitter_username']){echo $_SESSION['twitter_username'];}?>" placeholder="Twitter Username">
+									<input type="text" class="form-control" name="twitter_username" value="<?php if($_SESSION['twitter_username']){echo $_SESSION['twitter_username'];}?>" placeholder="Twitter Username" >
 								</div>
 							</div>
-              <div class="row mb-3">
+              				<div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Instagram</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php if($_SESSION['insta_username']){echo $_SESSION['insta_username'];}?>" placeholder="Instagram Username">
+									<input type="text" class="form-control" name="instagram_username" value="<?php if($_SESSION['instagram_username']){echo $_SESSION['instagram_username'];}?>" placeholder="Instagram Username" >
 								</div>
 							</div>
-              <div class="row mb-3">
+              				<div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Facebook</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php if($_SESSION['facebook_username']){echo $_SESSION['facebook_username'];}?>" placeholder="Facebook Username">
-								</div>
-							</div>
-              <div class="row mb-3">
-								<div class="col-sm-3">
-									<h6 class="mb-0">Github</h6>
-								</div>
-								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php if($_SESSION['github_username']){echo $_SESSION['github_username'];}?>" placeholder="Github Username">
+									<input type="text" class="form-control" name="facebook_username" value="<?php if($_SESSION['facebook_username']){echo $_SESSION['facebook_username'];}?>" placeholder="Facebook Username" >
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-3"></div>
 								<div class="col-sm-9 text-secondary">
-									<input type="button" class="btn btn-primary px-4" value="Update Information">
+									<button type="submit" class="btn btn-primary px-4" name="update_button">Update Information</button>
 								</div>
 							</div>
 						</div>
 					</div>
+				</form>	
 				</div>
 			</div>
 		</div>
-		<a class="btn btn-danger" href="../controllers/logout.php" role="button">LogOut</a>
-
 	</div>
     
         <!-- Footer-->

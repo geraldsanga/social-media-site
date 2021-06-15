@@ -64,8 +64,12 @@
 									<h4><?php echo $_SESSION['first_name']. ' ' . $_SESSION['last_name']?></h4>
 									<?php endif; ?>
 									<p class="text-muted font-size-sm"><?php if($_SESSION['address']){echo $_SESSION['address'];}?></p>
-									<a class="btn btn-warning" href="#" role="button">Deactivate Accoount</a>
-									<a class="btn btn-danger" href="../controllers/logout.php" role="button">LogOut</a>
+									<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#deactivate_account_modal">
+									Deactivate Account
+									</button>
+									<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#logout_modal">
+									LogOut
+									</button>
 								</div>
 							</div>
 							<hr class="my-4">
@@ -189,14 +193,62 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Modals -->
+	<!-- Deactivate Account Modal -->
+	<div class="modal fade" id="deactivate_account_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLongTitle">Deactivate Account</h5>
+				<button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="text-center">
+				Are you sure you wish to deactivate your account
+				</div>
+				<form action="../controllers/deactivate_account.php" method="POST">
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-danger" name="deactivate_account">Deactivate</button>
+				</div>
+				</form>
+			</div>
+			</div>
+		</div>
+	</div>
+	<!-- LogOut Modal -->
+	<div class="modal fade" id="logout_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLongTitle">LogOut</h5>
+				<button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="text-center">
+				Are You sure you wish to logout!
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<a class="btn btn-danger" href="../controllers/logout.php" role="button">LogOut</a>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
     
         <!-- Footer-->
         <footer class="py-5 bg-dark" style="margin-top:195px;">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Social Media Site 2021</p></div>
         </footer>
         <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="../assets/js/jquery-slim.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
     </body>
 </html>

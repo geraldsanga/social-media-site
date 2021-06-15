@@ -17,6 +17,7 @@ if(isset($_POST["login_button"])){
     }else{
         while($row = $result->fetch_assoc()){
             $hashed_password = $row["user_password"];
+            $is_active = $row["is_active"];
             $_SESSION['user_id'] = $row["id"];
             $_SESSION['number_of_posts'] = $row["number_of_posts"];
             $_SESSION['first_name'] = $row["first_name"];
@@ -31,9 +32,15 @@ if(isset($_POST["login_button"])){
             $_SESSION["facebook_username"] = $row["facebook_username"];
         }
         if(md5($password) == $hashed_password){
-            $_SESSION['user_logged_in'] = true;
-            $_SESSION['login_success_message'] = "Welcome Back!";
-            header("location: ../index.php");
+            if($is_active){
+                $_SESSION['user_logged_in'] = true;
+                $_SESSION['login_success_message'] = "Welcome Back!";
+                header("location: ../index.php");
+            }else{
+                $_SESSION['login_error_message'] = "This Account Is Deactivated";
+                header('location: ../register.php');
+            }
+            
         }else{
             echo "The passwords are not the same";
             echo $hashed_password . '<br>';

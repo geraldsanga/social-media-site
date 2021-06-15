@@ -64,7 +64,7 @@ if(isset($_SESSION['user_logged_in'])){
 					</div>
 				<?php endif ?>
 				<?php if(isset($_SESSION['login_error_message'])):?>
-					<div class="alert alert-danger mx-auto">
+					<div class="alert alert-danger text-center">
 						<?php
 							echo $_SESSION['login_error_message'];
 							unset($_SESSION['login_error_message']);

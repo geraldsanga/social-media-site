@@ -53,6 +53,16 @@ if(isset($_SESSION['user_logged_in'])){
 			</div>
 			<br>
 			<div id="first">
+			<?php if(isset($_SESSION['register_success_message']) || isset($_SESSION['login_success_message'])):?>
+					<div class="alert alert-success text-center" sytle="width:100%">
+						<?php
+                            if(isset($_SESSION['register_success_message'])){
+                                echo $_SESSION['register_success_message'];
+                                unset($_SESSION['register_success_message']);
+                            }
+						?>
+					</div>
+				<?php endif ?>
 				<?php if(isset($_SESSION['login_error_message'])):?>
 					<div class="alert alert-danger mx-auto">
 						<?php

@@ -17,10 +17,17 @@ if(isset($_POST["login_button"])){
     }else{
         while($row = $result->fetch_assoc()){
             $hashed_password = $row["user_password"];
+            $_SESSION['user_id'] = $row["id"];
             $_SESSION['first_name'] = $row["first_name"];
             $_SESSION['last_name'] = $row["last_name"];
             $_SESSION['user_name'] = $row["username"];
+            $_SESSION['address'] = $row["address"];
             $_SESSION['email'] = $row["email"];
+            $_SESSION["phone_number"]  = $row["phone_number"];
+            $_SESSION["address"]  = $row["address"];
+            $_SESSION["twitter_username"] = $row["twitter_username"];
+            $_SESSION["instagram_username"] = $row["instagram_username"];
+            $_SESSION["facebook_username"] = $row["facebook_username"];
         }
         if(md5($password) == $hashed_password){
             $_SESSION['user_logged_in'] = true;

@@ -99,9 +99,8 @@ if(isset($_POST["register_button"])){
       $hashed_password = md5($password2);
       $mysqli->query("INSERT INTO User (first_name, last_name, username, email, user_password) VALUES ('$first_name', '$last_name', '$user_name', '$email', '$hashed_password')") or die($mysqli->error);
       $_SESSION['msg_type'] = "success";
-      $_SESSION['register_success_message'] = "Account is successfully Created";
-      $_SESSION['user_logged_in'] = true;
-      header("location: ../index.php");
+      $_SESSION['register_success_message'] = "Account is successfully Created. Login";
+      header("location: ../register.php");
    }
    
 }

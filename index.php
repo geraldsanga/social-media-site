@@ -50,13 +50,10 @@ if(isset($_SESSION['user_logged_in'])){
                   $result = $mysqli->query("SELECT * FROM Post ORDER BY id DESC") or die($mysqli->error);
                   $email = $_SESSION['email'];
             ?>
-            <?php if(isset($_SESSION['register_success_message']) || isset($_SESSION['login_success_message'])):?>
+            <?php if(isset($_SESSION['login_success_message'])):?>
 					<div class="alert alert-success text-center" sytle="width:100%">
 						<?php
-                            if(isset($_SESSION['register_success_message'])){
-                                echo $_SESSION['register_success_message'];
-                                unset($_SESSION['register_success_message']);
-                            }else if(isset($_SESSION['login_success_message'])){
+                            if(isset($_SESSION['login_success_message'])){
                                 echo $_SESSION['login_success_message'];
                                 unset($_SESSION['login_success_message']);
                             }

@@ -1,3 +1,11 @@
+<?php
+	require_once '../config/config.php';
+	if(isset($_SESSION['user_logged_in'])){
+    
+	}else{
+		header("location: ../register.php");
+	}
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8" />

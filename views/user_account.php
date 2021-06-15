@@ -1,3 +1,11 @@
+<?php
+	require_once '../config/config.php';
+	if(isset($_SESSION['user_logged_in'])){
+    
+	}else{
+		header("location: ../register.php");
+	}
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -36,9 +44,10 @@
 							<div class="d-flex flex-column align-items-center text-center">
 								<img src="../assets/images/profile_pics/defaults/head_carrot.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
 								<div class="mt-3">
-									<h4>John Doe</h4>
-									<p class="text-secondary mb-1">Full Stack Developer</p>
-									<p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+									<?php if($_SESSION['first_name'] || $_SESSION['last_name']):?>
+									<h4><?php echo $_SESSION['first_name']. ' ' . $_SESSION['last_name']?></h4>
+									<?php endif; ?>
+									<p class="text-muted font-size-sm"><?php if($_SESSION['address']){echo $_SESSION['address'];}?></p>
 									<button class="btn btn-primary">Follow</button>
 									<button class="btn btn-outline-primary">Message</button>
 								</div>
@@ -76,7 +85,7 @@
 									<h6 class="mb-0">First Name</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="Neema" placeholder="Enter First Name">
+									<input type="text" class="form-control" value="<?php if($_SESSION['first_name']){echo $_SESSION['first_name'];}?>" placeholder="Enter First Name">
 								</div>
 							</div>
               <div class="row mb-3">
@@ -84,7 +93,7 @@
                   <h6 class="mb-0">Last Name</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input type="text" class="form-control" value="Mracha" placeholder="Enter Last Name">
+                  <input type="text" class="form-control" value="<?php if($_SESSION['last_name']){echo $_SESSION['last_name'];}?>" placeholder="Enter Last Name">
                 </div>
               </div>
 							<div class="row mb-3">
@@ -92,7 +101,7 @@
 									<h6 class="mb-0">Email</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="neema@example.com" placeholder="Eg: neema@mail.com">
+									<input type="text" class="form-control" value="<?php if($_SESSION['email']){echo $_SESSION['email'];}?>" placeholder="Eg: neema@mail.com">
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -100,7 +109,7 @@
 									<h6 class="mb-0">Phone</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="+255 623 095 550" placeholder="Eg: +255 623 095 550">
+									<input type="text" class="form-control" value="<?php if($_SESSION['phone_number']){echo $_SESSION['phone_number'];}?>" placeholder="Eg: +255 623 095 550">
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -108,7 +117,7 @@
 									<h6 class="mb-0">Address</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="Bay Area, San Francisco, CA" placeholder="Eg: Machava, Kigamboni, Dar es Salaam">
+									<input type="text" class="form-control" value="<?php if($_SESSION['address']){echo $_SESSION['address'];}?>" placeholder="Eg: Machava, Kigamboni, Dar es Salaam">
 								</div>
 							</div>
               <div class="row mb-3">
@@ -116,7 +125,7 @@
 									<h6 class="mb-0">Twitter</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="" placeholder="Twitter Username">
+									<input type="text" class="form-control" value="<?php if($_SESSION['twitter_username']){echo $_SESSION['twitter_username'];}?>" placeholder="Twitter Username">
 								</div>
 							</div>
               <div class="row mb-3">
@@ -124,7 +133,7 @@
 									<h6 class="mb-0">Instagram</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="" placeholder="Instagram Username">
+									<input type="text" class="form-control" value="<?php if($_SESSION['insta_username']){echo $_SESSION['insta_username'];}?>" placeholder="Instagram Username">
 								</div>
 							</div>
               <div class="row mb-3">
@@ -132,7 +141,7 @@
 									<h6 class="mb-0">Facebook</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="" placeholder="Facebook Username">
+									<input type="text" class="form-control" value="<?php if($_SESSION['facebook_username']){echo $_SESSION['facebook_username'];}?>" placeholder="Facebook Username">
 								</div>
 							</div>
               <div class="row mb-3">
@@ -140,13 +149,13 @@
 									<h6 class="mb-0">Github</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="" placeholder="Github Username">
+									<input type="text" class="form-control" value="<?php if($_SESSION['github_username']){echo $_SESSION['github_username'];}?>" placeholder="Github Username">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-3"></div>
 								<div class="col-sm-9 text-secondary">
-									<input type="button" class="btn btn-primary px-4" value="Save Changes">
+									<input type="button" class="btn btn-primary px-4" value="Update Information">
 								</div>
 							</div>
 						</div>
@@ -154,6 +163,8 @@
 				</div>
 			</div>
 		</div>
+		<a class="btn btn-danger" href="../controllers/logout.php" role="button">LogOut</a>
+
 	</div>
     
         <!-- Footer-->

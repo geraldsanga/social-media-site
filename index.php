@@ -43,15 +43,19 @@ if(isset($_SESSION['user_logged_in'])){
                 </div>
             </div>
         </header>
-        <!-- Page content-->
+        <!-- Page content-->  
         <div class="container">
             <div class="row justify-content-center">
             <?php if(isset($_SESSION['login_success_message']) || isset($_SESSION['post_sucess'])):?>
+
                     <?php if(isset($_SESSION['login_success_message'])):?>
-					<div class="alert alert-success text-center" sytle="width:100%">
-                            <?php echo $_SESSION['login_success_message']; ?>
+					<div class="alert alert-dismissible alert-success text-center" sytle="width:100%">
+                            <?php echo $_SESSION['login_success_message']; 
+                                  unset($_SESSION['login_success_message']);
+                            ?>
 					</div>
-                    <?php endif ?>
+                    <?php endif; ?>
+
                     <?php if(isset($_SESSION['post_sucess'])): ?>
                     <div class="alert alert-success text-center" sytle="width:100%">
 						<?php echo $_SESSION['post_sucess'];
@@ -59,20 +63,21 @@ if(isset($_SESSION['user_logged_in'])){
                         ?>
 					</div>
                     <?php endif ?>
+
 			<?php endif ?>
                 <!-- Blog entries-->
                 <div class="col-lg-8">
                 <?php $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 
-                  $result = $mysqli->query("SELECT p.id id, p.date_created date_created, p.title title, u.username username FROM Post as p INNER JOIN User as u ON p.user_id=u.id ORDER BY p.id DESC") or die($mysqli->error);
+                  $result = $mysqli->query("SELECT p.id id, p.date_created date_created, p.title title, p.picture picture, u.username username FROM Post as p INNER JOIN User as u ON p.user_id=u.id ORDER BY p.id DESC") or die($mysqli->error);
                   $email = $_SESSION['email'];
                 ?>
                     <!-- Featured blog post-->
                     <?php while($row = $result->fetch_assoc()):?>
                     <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                        <a href="#!"><img class="card-img-top" src="<?php echo $row['picture']; ?>" alt="..." /></a>
                         <div class="card-body">
                             <p class="card-text mb-0"><b><?php echo strtoupper($row['title']);?></b></p>
-                            <div class="small text-muted"><?php echo $row['date_created'];?></div>
+                            <div class="small text-muted"><?php echo $row['date_created'];?> </div>
                             <div class="small">Posted by: <b><?php echo $row['username'];?></b></div>
                             <a class="btn btn-primary" href="views/post_details.php?post_id=<?php echo $row["id"]?>">Read more →</a>
                         </div>

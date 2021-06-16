@@ -34,7 +34,8 @@ if(isset($_POST["login_button"])){
                     $_SESSION["instagram_username"] = $row["instagram_username"];
                     $_SESSION["facebook_username"] = $row["facebook_username"];
                     $_SESSION['user_logged_in'] = true;
-                    $_SESSION['login_success_message'] = "Welcome Back!";
+                    $username = $_SESSION['user_name'];
+                    $_SESSION['login_success_message'] = "Hello, $username. You are Welcome!";
                     header("location: ../index.php");
                 }else{
                     $_SESSION['not_active'] = true;

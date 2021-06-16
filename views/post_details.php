@@ -38,7 +38,7 @@
         <!-- Opening query for the post details, date, creator etc...-->
         <?php     $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 
                   $post_id = $_GET['post_id'];
-                  $post_result = $mysqli->query("SELECT p.id id, p.date_created date_created, p.caption caption, u.username username FROM Post p JOIN User u ON p.user_id=u.id WHERE p.id = $post_id") or die($mysqli->error);
+                  $post_result = $mysqli->query("SELECT p.id id, p.title title, p.date_created date_created, p.description post_description, u.username username FROM Post p JOIN User u ON p.user_id=u.id WHERE p.id = $post_id") or die($mysqli->error);
         ?>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -48,7 +48,7 @@
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="fw-bolder mb-1">Post Title!</h1>
+                            <h1 class="fw-bolder mb-1"><?php echo $post_row["title"]; ?></h1>
                             <!-- Post meta content-->
                             <div class="text-muted fst-italic mb-2">Posted on <?php echo $post_row["date_created"];?> by <?php echo $post_row["username"];?></div>
                             <!-- Post categories-->
@@ -59,7 +59,7 @@
                         <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
                         <!-- Post content-->
                         <section class="mb-5">
-                            <p class="fs-5 mb-4"><?php echo $post_row["caption"]; ?></p>
+                            <p class="fs-5 mb-4"><?php echo $post_row["post_description"]; ?></p>
                         </section>
                     </article>
                         <section class="mb-5">

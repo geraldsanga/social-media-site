@@ -58,11 +58,14 @@
                         <!-- Preview image figure-->
                         <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
                         <!-- Post content-->
-                        <section class="mb-5">
-                            <p class="fs-5 mb-4"><?php echo $post_row["post_description"]; ?></p>
+                        <section>
+                            <p class="fs-5"><?php echo $post_row["post_description"]; ?></p>
                         </section>
                     </article>
-                        <section class="mb-5">
+                        <section class="mb-2">
+                        <div class="mb-3">
+                        <a href="../controllers/like_post.php?post_id=<?php echo $post_row["id"]?>"><img src="../assets/icons/innactive_like.svg" style="width:30px; height:30px; color:red;"></a>
+                        </div>  
                             <?php if(isset($_SESSION["posted_comment"])):?>
                                 <div class="alert alert-success text-center" sytle="width:100%">
                                     <?php

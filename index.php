@@ -68,7 +68,7 @@ if(isset($_SESSION['user_logged_in'])){
                 <!-- Blog entries-->
                 <div class="col-lg-8">
                 <?php $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 
-                  $result = $mysqli->query("SELECT p.id id, p.date_created date_created, p.title title, p.picture picture, u.username username FROM Post as p INNER JOIN User as u ON p.user_id=u.id ORDER BY p.id DESC") or die($mysqli->error);
+                  $result = $mysqli->query("SELECT p.id id, p.date_created date_created, p.title title, p.picture picture, u.username username, u.id user_id FROM Post as p INNER JOIN User as u ON p.user_id=u.id ORDER BY p.id DESC") or die($mysqli->error);
                   $email = $_SESSION['email'];
                 ?>
                     <!-- Featured blog post-->
@@ -78,7 +78,7 @@ if(isset($_SESSION['user_logged_in'])){
                         <div class="card-body">
                             <p class="card-text mb-0"><b><?php echo strtoupper($row['title']);?></b></p>
                             <div class="small text-muted"><?php echo $row['date_created'];?> </div>
-                            <div class="small">Posted by: <b><?php echo $row['username'];?></b></div>
+                            <div class="small">Posted by: <b><a style="text-decoration: none;" href="views/others_user_account.php?user_id=<?php echo $row["user_id"]?>"><?php echo $row['username'];?></a></b></div>
                             <a class="btn btn-primary" href="views/post_details.php?post_id=<?php echo $row["id"]?>">Read more →</a>
                         </div>
                     </div>

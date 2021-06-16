@@ -70,7 +70,7 @@ if(isset($_SESSION['user_logged_in'])){
                             <div class="small text-muted"><?php echo $row['date_created'];?></div>
                             <div class="small">Posted by: <b><?php echo $row['username'];?></b></div>
                             <p class="card-text"><?php echo $row['caption'];?></p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
+                            <a class="btn btn-primary" href="views/post_details.php?post_id=<?php echo $row["id"]?>">Read more →</a>
                         </div>
                     </div>
                     <?php endwhile; ?>

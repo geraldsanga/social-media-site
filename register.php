@@ -63,12 +63,24 @@ if(isset($_SESSION['user_logged_in'])){
 						?>
 					</div>
 				<?php endif ?>
+				<?php if(isset($_SESSION['activation_success'])):?>
+					<div class="alert alert-success text-center" sytle="width:100%">
+						<?php
+							echo $_SESSION['activation_success'];
+							unset($_SESSION['activation_success']);
+						?>
+					</div>
+				<?php endif ?>
 				<?php if(isset($_SESSION['login_error_message'])):?>
-					<div class="alert alert-danger mx-auto">
+					<div class="alert alert-danger text-center">
 						<?php
 							echo $_SESSION['login_error_message'];
 							unset($_SESSION['login_error_message']);
 						?>
+						<?php if(isset($_SESSION['not_active'])):?>
+							<?php unset($_SESSION['not_active']);?>
+							<p>click <a href="views/activate_account.php">here<a> to activate account<p>
+						<?php endif ?>
 					</div>
 				<?php endif ?>
 				<form action="controllers/login.php" method="POST">

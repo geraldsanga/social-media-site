@@ -38,7 +38,7 @@
         <!-- Opening query for the post details, date, creator etc...-->
         <?php     $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 
                   $post_id = $_GET['post_id'];
-                  $post_result = $mysqli->query("SELECT * FROM Post JOIN User ON Post.user_id=User.id WHERE Post.id = $post_id") or die($mysqli->error);
+                  $post_result = $mysqli->query("SELECT p.id id, p.date_created date_created, p.caption caption, u.username username FROM Post p JOIN User u ON p.user_id=u.id WHERE p.id = $post_id") or die($mysqli->error);
         ?>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -86,7 +86,7 @@
                                 <?php
                                       $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli));
                                       $post_id = $_GET['post_id'];
-                                      $comment_result = $mysqli->query("SELECT * FROM Comment JOIN Post ON Post.id=Comment.post_id JOIN User ON User.id=Comment.user_id WHERE Post.id=$post_id ORDER BY Comment.id DESC") or die($mysqli->error);
+                                      $comment_result = $mysqli->query("SELECT c.comment comment, u.username username FROM Comment as c INNER JOIN User as u ON u.id=c.user_id WHERE c.post_id=$post_id ORDER BY c.id DESC") or die($mysqli->error);
                                 ?>
                                 <!-- Single comment-->
                                 <?php while($comment_row = $comment_result->fetch_assoc()):?>

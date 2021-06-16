@@ -42,8 +42,10 @@
 
                         <!-- Body -->
                         <div class="form-group mb-3">
-                            <label for="id_body"><b>Caption</b></label>
-                            <textarea class="form-control" rows="3" type="text" name="caption" id="id_body" placeholder="What's on your mind" required></textarea>
+                        <label for="postTitle"><b>Title</b></label>
+                            <input class="form-control mb-3" type="text" name="title" id="postTitle" placeholder="Eg: Python is better than PHP" required>
+                            <label for="postBody"><b>Description</b></label>
+                            <textarea class="form-control" rows="3" type="text" name="description" id="postBody" placeholder="Further Description.." required></textarea>
                         </div>
 
                         <!-- Image -->

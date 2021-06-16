@@ -43,13 +43,13 @@ if(isset($_SESSION['user_logged_in'])){
                 </div>
             </div>
         </header>
-        <!-- Page content-->
+        <!-- Page content-->  
         <div class="container">
             <div class="row justify-content-center">
             <?php if(isset($_SESSION['login_success_message']) || isset($_SESSION['post_sucess'])):?>
 
                     <?php if(isset($_SESSION['login_success_message'])):?>
-					<div class="alert alert-success text-center" sytle="width:100%">
+					<div class="alert alert-dismissible alert-success text-center" sytle="width:100%">
                             <?php echo $_SESSION['login_success_message']; 
                                   unset($_SESSION['login_success_message']);
                             ?>

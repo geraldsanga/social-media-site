@@ -49,10 +49,10 @@
                         </div>
 
                         <!-- Image -->
-                        <!-- <div class="form-group mb-3">
+                        <div class="form-group mb-3">
                             <label for="id_image">Image</label>
                             <input  type="file" name="image" id="image" accept="image/*" required>
-                        </div> -->
+                        </div>
                         <div class="form-group">
                         <!-- Submit btn -->
                         <button class="submit-button btn btn-lg btn-primary btn-block" type="submit" name="save_post">POST</button>

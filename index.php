@@ -47,23 +47,19 @@ if(isset($_SESSION['user_logged_in'])){
         <div class="container">
             <div class="row justify-content-center">
             <?php if(isset($_SESSION['login_success_message']) || isset($_SESSION['post_sucess'])):?>
+                    <?php if(isset($_SESSION['login_success_message'])):?>
 					<div class="alert alert-success text-center" sytle="width:100%">
-						<?php
-                            if(isset($_SESSION['login_success_message'])){
-                                echo $_SESSION['login_success_message'];
-                                unset($_SESSION['login_success_message']);
-                            }
-						?>
+                            <?php echo $_SESSION['login_success_message']; ?>
 					</div>
+                    <?php endif ?>
+                    <?php if(isset($_SESSION['post_sucess'])): ?>
                     <div class="alert alert-success text-center" sytle="width:100%">
-						<?php
-                            if(isset($_SESSION['post_sucess'])){
-                                echo $_SESSION['post_sucess'];
-                                unset($_SESSION['post_sucess']);
-                            }
-						?>
+						<?php echo $_SESSION['post_sucess'];
+                              unset($_SESSION['post_sucess']);
+                        ?>
 					</div>
-				<?php endif ?>
+                    <?php endif ?>
+			<?php endif ?>
                 <!-- Blog entries-->
                 <div class="col-lg-8">
                 <?php $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 

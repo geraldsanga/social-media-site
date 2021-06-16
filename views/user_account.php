@@ -76,9 +76,6 @@
 							<ul>
 							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 								<h5 class="mb-2">Number of Posts: <?php if($_SESSION['number_of_posts']){echo $_SESSION['number_of_posts'];}else{echo 0;}?></h6>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-								<h5 class="mb-2">Number of LIkes: <?php if($_SESSION['number_of_likes']){echo $_SESSION['number_of_likes'];}else{echo 0;}?></h6>
 							</li>				
 							</ul>
 							<hr class="my-4">

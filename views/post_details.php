@@ -62,10 +62,12 @@
                             <p class="fs-5"><?php echo $post_row["post_description"]; ?></p>
                         </section>
                     </article>
+                    <!-- Second Query to find out if the user has liked the post or not -->
                         <?php
                             $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli));
                             $post_id = $_GET['post_id'];
-                            $like_results = $mysqli->query("SELECT COUNT(pl.id) as number_of_likes, CASE WHEN pl.active = 1 THEN 1 ELSE 0 END AS user_like, u.id as user_id FROM PostLike as pl INNER JOIN User as u ON u.id=pl.user_id WHERE pl.post_id=$post_id") or die($mysqli->error);
+                            $user_id = $_SESSION['user_id'];
+                            $like_results = $mysqli->query("SELECT COUNT(pl.id) as number_of_likes, CASE WHEN pl.active = 1 THEN 1 ELSE 0 END AS user_like, pl.user_id as user_id FROM PostLike as pl INNER JOIN User as u ON u.id=pl.user_id WHERE pl.post_id=$post_id AND pl.user_id=$user_id") or die($mysqli->error);
                         ?>
                         <section class="mb-2">
                         <div class="mb-3">
@@ -79,18 +81,7 @@
                                 <a href="../controllers/unlike_post.php?post_id=<?php echo $post_row["id"]?>"><img src="../assets/icons/unlike.svg" style="width:30px; height:30px; color:red;"></a>
                             </div>
                         </div>
-                        <?php endif ?>
-                        <?php if($like_row["user_like"] && $like_row["user_id"] != $_SESSION["user_id"]):?>
-                        <div class="row">
-                            <div class="col-1">
-                            <a href="../controllers/like_post.php?post_id=<?php echo $post_row["id"]?>"><img src="../assets/icons/not_liked.svg" style="width:30px; height:30px; color:red;"></a>
-                            </div>
-                            <div class="col-1">
-                                <a href="../controllers/unlike_post.php?post_id=<?php echo $post_row["id"]?>"><img src="../assets/icons/unlike.svg" style="width:30px; height:30px; color:red;"></a>
-                            </div>
-                        </div>
-                        <?php endif ?>
-                        <?php if(!$like_row["user_like"]): ?>
+                        <?php elseif(!$like_row["user_like"] && $like_row["user_id"] == $_SESSION["user_id"]): ?>
                             <div class="row">
                             <div class="col-1">
                                 <a href="../controllers/like_post.php?post_id=<?php echo $post_row["id"]?>"><img src="../assets/icons/not_liked.svg" style="width:30px; height:30px; color:red;"></a>

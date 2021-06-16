@@ -13,7 +13,6 @@
             while($row = $like_results->fetch_assoc()){
                 //if he has already liked the photo simply redirect him back to the post detail page
                 if($row['active']){
-                $mysqli->query("UPDATE PostLike SET active = 1 WHERE user_id='$user_id' AND post_id='$post_id'") or die($mysqli->error);
                 header("location: ../views/post_details.php?post_id=$post_id");
                 }else{ //if has he liked the picture and later unliked it but he is trying to like it now, update the active button
                 $mysqli->query("UPDATE PostLike SET active = 1 WHERE user_id='$user_id' AND post_id='$post_id'") or die($mysqli->error);

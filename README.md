@@ -1,4 +1,4 @@
-# sOcIaLsItE.com!
+# SoCiAlSiTe.com!
 
 ## Project sOcIaLsItE.com
 

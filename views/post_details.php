@@ -38,7 +38,7 @@
         <!-- Opening query for the post details, date, creator etc...-->
         <?php     $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 
                   $post_id = $_GET['post_id'];
-                  $post_result = $mysqli->query("SELECT p.id id, p.title title,p.picture picture, p.date_created date_created, p.description post_description, u.username username FROM Post p JOIN User u ON p.user_id=u.id WHERE p.id = $post_id") or die($mysqli->error);
+                  $post_result = $mysqli->query("SELECT p.id id, p.title title,p.picture picture, p.date_created date_created, p.description post_description, u.username username, u.id user_id FROM Post p JOIN User u ON p.user_id=u.id WHERE p.id = $post_id") or die($mysqli->error);
         ?>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -50,7 +50,7 @@
                             <!-- Post title-->
                             <h1 class="fw-bolder mb-1"><?php echo $post_row["title"]; ?></h1>
                             <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posted on <?php echo $post_row["date_created"];?> by <?php echo $post_row["username"];?></div>
+                            <div class="text-muted fst-italic mb-2">Posted on <?php echo $post_row["date_created"];?> by <a style="text-decoration: none;" href="others_user_account.php?user_id=<?php echo $post_row["user_id"]?>"><?php echo $post_row["username"];?></a></div>
                             <!-- Post categories-->
                             <!-- <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
                             <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a> -->

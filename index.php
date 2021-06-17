@@ -47,30 +47,42 @@ if(isset($_SESSION['user_logged_in'])){
         <div class="container">
             <div class="row justify-content-center">
             <?php if(isset($_SESSION['login_success_message']) || isset($_SESSION['post_sucess'])):?>
-
                     <?php if(isset($_SESSION['login_success_message'])):?>
 					<div class="alert alert-dismissible alert-success text-center" sytle="width:100%">
                             <?php echo $_SESSION['login_success_message']; 
                                   unset($_SESSION['login_success_message']);
                             ?>
 					</div>
-                    <?php endif; ?>
-
-                    <?php if(isset($_SESSION['post_sucess'])): ?>
+                    <?php elseif(isset($_SESSION['post_sucess'])): ?>
                     <div class="alert alert-success text-center" sytle="width:100%">
 						<?php echo $_SESSION['post_sucess'];
                               unset($_SESSION['post_sucess']);
                         ?>
 					</div>
                     <?php endif ?>
-
-			<?php endif ?>
+            <?php endif ?>
+            <?php if(isset($_SESSION['empty_search_error'])): ?>
+                <div class="alert alert-danger text-center" sytle="width:100%">
+						<?php echo $_SESSION['empty_search_error'];
+                              unset($_SESSION['empty_search_error']);
+                        ?>
+					</div>
+            <?php endif ?>
                 <!-- Blog entries-->
+                <div class="col-lg-6">
+                    <!-- Search widget-->
+                    <form class="form-inline" action="views/search_result.php" method="POST">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Eg: Programming" aria-label="Enter search term..." name="search_string"/>
+                            <button class="btn btn-warning" id="button-search" type="submit" name="search_string_button">Go!</button>
+                        </div>
+                    </form>
+                </div>
                 <div class="col-lg-8">
-                <?php $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 
-                  $result = $mysqli->query("SELECT p.id id, p.date_created date_created, p.title title, p.picture picture, u.username username, u.id user_id FROM Post as p INNER JOIN User as u ON p.user_id=u.id ORDER BY p.id DESC") or die($mysqli->error);
-                  $email = $_SESSION['email'];
-                ?>
+                    <?php $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 
+                    $result = $mysqli->query("SELECT p.id id, p.date_created date_created, p.title title, p.picture picture, u.username username, u.id user_id FROM Post as p INNER JOIN User as u ON p.user_id=u.id ORDER BY p.id DESC") or die($mysqli->error);
+                    $email = $_SESSION['email'];
+                    ?>
                     <!-- Featured blog post-->
                     <?php while($row = $result->fetch_assoc()):?>
                     <div class="card mb-4">
@@ -99,7 +111,6 @@ if(isset($_SESSION['user_logged_in'])){
                     </nav>
                 </div>
                 <!-- Side widgets-->
-               
             </div>
         </div>
         <!-- Footer-->

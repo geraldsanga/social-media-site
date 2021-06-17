@@ -1,13 +1,11 @@
 # SoCiAlSiTe.com!
 
-## Project sOcIaLsItE.com
+## Overview
 
-### Overview
+## Installation
 
-### Installation
+## Vision
 
-### Vision
+## Licence
 
-### Licence
-
-### Contributors and Acknowledgement
+## Contributors and Acknowledgement

@@ -2,9 +2,11 @@
 	require_once '../config/config.php';
 	if(isset($_SESSION['user_logged_in'])){
     
-	}else{
-		header("location: ../register.php");
-	}
+	if(!isset($_SESSION['user_logged_in']))   
+    header("location: register.php");
+
+    $user_id = $_SESSION['user_id'];
+
 ?>
 <html lang="en">
     <head>
@@ -49,17 +51,19 @@
                         <header class="mb-4">
                             <!-- Post title-->
                             <h1 class="fw-bolder mb-1"><?php echo $post_row["title"]; ?></h1>
+                            <h3>Likes: <?php echo $post_row['likes'];?></h3>
+                            <h3>Dislikes: <?php echo $post_row['dislikes'];?></h3>
                             <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posted on <?php echo $post_row["date_created"];?> by <a style="text-decoration: none;" href="others_user_account.php?user_id=<?php echo $post_row["user_id"]?>"><?php echo $post_row["username"];?></a></div>
+                            <div class="text-muted fst-italic mb-2">Posted on <?php echo $post_row["date_created"];?> by <a style="text-decoration: none;" href="others_user_account.php?user_id=<?php echo $post_row["user_id"];?>"><?php echo $post_row["username"];?></a></div>
                             <!-- Post categories-->
                             <!-- <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
                             <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a> -->
                         </header>
                         <!-- Preview image figure-->
-                        <figure class="mb-4"><img class="img-fluid rounded" src="../<?php echo $post_row['picture']; ?>" alt="..." /></figure>
+                        <figure class="mb-4"><img class="img-fluid rounded" src="../<?php echo $post_row['picture'];?>" alt="..." /></figure>
                         <!-- Post content-->
                         <section>
-                            <p class="fs-5"><?php echo $post_row["post_description"]; ?></p>
+                            <p class="fs-5"><?php echo $post_row["description"];?></p>
                         </section>
                     </article>
                     <!-- Second Query to find out if the user has liked the post or not -->

@@ -22,11 +22,11 @@ if(isset($_POST["reactivate_account"])){
             $active_account = $row["is_active"];
             $user_id = $row["id"];
             if(md5($password) == $hashed_password){
-                if(!$active_account){
+                if(!$active_account){// Check if the acount is deactivated
                     $mysqli->query("UPDATE User SET is_active =1 WHERE id=$user_id") or die($mysqli->error);
-                    $_SESSION['activation_success'] = "Your account has been successfully activated";
+                    $_SESSION['activation_success'] = "Your account has been successfully activated. You can now login";
                     header("location: ../register.php");
-                }else{
+                }else{// if the account is active
                     $_SESSION['activation_error'] = "The credentials are for a valid account";
                     header('location: ../views/activate_account.php');
                 }

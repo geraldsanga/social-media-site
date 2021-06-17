@@ -19,7 +19,9 @@ if(isset($_POST["login_button"])){
             $hashed_password = $row["user_password"];
             $active_account = $row["is_active"];
             
+            // Take the hashed password and check if it's hashed version matches the stored password
             if(md5($password) == $hashed_password){
+                // Check if the account is active
                 if($active_account){
                     $_SESSION['user_id'] = $row["id"];
                     $_SESSION['number_of_posts'] = $row["number_of_posts"];
@@ -37,13 +39,13 @@ if(isset($_POST["login_button"])){
                     $username = $_SESSION['user_name'];
                     $_SESSION['login_success_message'] = "Hello, $username. You are Welcome!";
                     header("location: ../index.php");
-                }else{
+                }else{//if the account is not active
                     $_SESSION['not_active'] = true;
                     $_SESSION['login_error_message'] = "This Account Is Deactivated";
                     header('location: ../register.php');
                 }
                 
-            }else{
+            }else{// if the passwords are not the same
                 $_SESSION['login_error_message'] = "Invalid credentials";
                 header('location: ../register.php');
             }

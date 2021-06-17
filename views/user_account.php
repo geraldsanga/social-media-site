@@ -1,10 +1,7 @@
 <?php
 	require_once '../config/config.php';
-	if(isset($_SESSION['user_logged_in'])){
-    
-	}else{
-		header("location: ../register.php");
-	}
+	if(!isset($_SESSION['user_logged_in']))   
+    header("location: register.php");
 ?>
 <html lang="en">
     <head>
@@ -23,7 +20,7 @@
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="../index.php">Social Media Site</a>
+                <a class="navbar-brand" href="../index.php">SoCiAlSiTe.com!</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -76,9 +73,6 @@
 							<ul>
 							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 								<h5 class="mb-2">Number of Posts: <?php if($_SESSION['number_of_posts']){echo $_SESSION['number_of_posts'];}else{echo 0;}?></h6>
-							</li>
-							<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-								<h5 class="mb-2">Number of LIkes: <?php if($_SESSION['number_of_likes']){echo $_SESSION['number_of_likes'];}else{echo 0;}?></h6>
 							</li>				
 							</ul>
 							<hr class="my-4">
@@ -136,8 +130,7 @@
 									<h6 class="mb-0">Username</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-								<input type="text" class="form-control" name="email" value="<?php if($_SESSION['user_name']){echo $_SESSION['user_name'];}?>" placeholder="Eg: neema@mail.com" required>
-								<input type="text" name="user_id" class="form-control" value="<?php if($_SESSION['user_id']){echo $_SESSION['user_id'];}?>" hidden>
+								<input type="text" class="form-control" name="user_name" value="<?php if($_SESSION['user_name']){echo $_SESSION['user_name'];}?>" placeholder="Eg: neema" required>
 								</div>
 							</div>
 							<div class="row mb-3">

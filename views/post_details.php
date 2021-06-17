@@ -35,7 +35,7 @@
         </nav>
         <!-- Page content-->
         <div class="container mt-5">
-        <!-- Opening query for the post details, date, creator etc...-->
+        <!-- Query to get the following: Post details, Number of likes and dislikes, check if the current user has liked this post or not-->
         <?php     $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 
                   $post_id = $_GET['post_id'];
                   $post_result = $mysqli->query("SELECT p.id id, p.title title,p.picture picture, p.date_created date_created, p.description post_description, u.username username, u.id user_id FROM Post p JOIN User u ON p.user_id=u.id WHERE p.id = $post_id") or die($mysqli->error);

@@ -120,7 +120,7 @@
                                 <?php
                                       $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli));
                                       $post_id = $_GET['post_id'];
-                                      $comment_result = $mysqli->query("SELECT c.comment comment, u.username username FROM Comment as c INNER JOIN User as u ON u.id=c.user_id WHERE c.post_id=$post_id ORDER BY c.id DESC") or die($mysqli->error);
+                                      $comment_result = $mysqli->query("SELECT c.comment, u.username FROM Comment as c INNER JOIN User as u ON u.id=c.user_id WHERE c.post_id=$post_id ORDER BY c.id DESC") or die($mysqli->error);
                                 ?>
                                 <!-- Single comment-->
                                 <?php while($comment_row = $comment_result->fetch_assoc()):?>

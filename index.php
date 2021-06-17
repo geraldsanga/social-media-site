@@ -23,7 +23,7 @@ if(isset($_SESSION['user_logged_in'])){
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="index.php">Social Media Site</a>
+                <a class="navbar-brand" href="index.php">SoCiAlSiTe.com!</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -38,8 +38,8 @@ if(isset($_SESSION['user_logged_in'])){
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
                 <div class="text-center my-5">
-                    <h1 class="fw-bolder">Welcome to Social Media Site!</h1>
-                    <p class="lead mb-0">There is no place like here</p>
+                    <h1 class="fw-bolder">SoCiAlSiTe.com!</h1>
+                    <p class="lead mb-0">You just can't go somewhere else!!!</p>
                 </div>
             </div>
         </header>

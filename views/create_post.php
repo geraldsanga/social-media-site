@@ -1,10 +1,7 @@
 <?php
 	require_once '../config/config.php';
-	if(isset($_SESSION['user_logged_in'])){
-    
-	}else{
-		header("location: ../register.php");
-	}
+	if(!isset($_SESSION['user_logged_in']))
+    header("location: register.php");
 ?>
 <html lang="en">
     <head>

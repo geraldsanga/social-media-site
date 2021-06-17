@@ -133,8 +133,7 @@
 									<h6 class="mb-0">Username</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-								<input type="text" class="form-control" name="email" value="<?php if($_SESSION['user_name']){echo $_SESSION['user_name'];}?>" placeholder="Eg: neema@mail.com" required>
-								<input type="text" name="user_id" class="form-control" value="<?php if($_SESSION['user_id']){echo $_SESSION['user_id'];}?>" hidden>
+								<input type="text" class="form-control" name="user_name" value="<?php if($_SESSION['user_name']){echo $_SESSION['user_name'];}?>" placeholder="Eg: neema" required>
 								</div>
 							</div>
 							<div class="row mb-3">

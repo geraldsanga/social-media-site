@@ -4,7 +4,7 @@ session_start();
 
 $timezone = date_default_timezone_set("Africa/Dar_es_Salaam");
 
-$con = mysqli_connect("localhost", "root", "", "social"); //Connection variable
+$con = mysqli_connect("localhost", "root", "Root*123", "social"); //Connection variable
 
 if(mysqli_connect_errno()) 
 {

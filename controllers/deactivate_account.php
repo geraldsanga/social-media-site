@@ -1,4 +1,5 @@
 <?php
+// Deactivate user account
 require_once '../config/config.php';
 $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli)); 
 

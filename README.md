@@ -1,2 +1,11 @@
-# social-media-site
-Project Social Media
+# SoCiAlSiTe.com!
+
+## Overview
+
+## Installation
+
+## Vision
+
+## Licence
+
+## Contributors and Acknowledgement

@@ -6,7 +6,7 @@
         $user_id = $_SESSION["user_id"];
         $post_id = $_GET["post_id"];
         $active = true;
-        $inactive = false;
+        $inactive = 0;
         // Query to see if user has already interacted with the Post
         $like_results = $mysqli->query("SELECT active FROM PostLike WHERE post_id='$post_id' AND user_id='$user_id'");
         $num_rows = mysqli_num_rows($like_results);

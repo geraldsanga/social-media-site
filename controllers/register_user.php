@@ -3,7 +3,7 @@
 require_once "../config/config.php";
 
 // HANDLING USER REGISTRATION
-$mysqli = new mysqli("localhost", "root", "","social") or die(mysqli_error($mysqli));
+$mysqli = new mysqli("localhost", "root", "Root*123","social") or die(mysqli_error($mysqli));
 
 if(isset($_POST["register_button"])){
    $first_name = $_POST["first_name"];

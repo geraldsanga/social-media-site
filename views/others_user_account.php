@@ -39,7 +39,7 @@
 				<div class="col-lg-12">
                 <?php
                     $user_id = $_GET['user_id'];
-                    $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli));
+                    $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli));
                     $result = $mysqli->query("SELECT * FROM User WHERE id=$user_id") or die($mysqli->error);
                 ?>
                     <?php while($row = $result->fetch_assoc()):?>

@@ -12,7 +12,7 @@
         <title>Post Detail</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Core theme CSS (includes Bootstrap)-->
+        
         <link href="../assets/css/post_styles.css" rel="stylesheet" />
         <link href="../assets/css/user_account_styles.css" rel="stylesheet" />
     </head>
@@ -187,7 +187,7 @@
 		</div>
 	</div>
 
-	<!-- Modals -->
+	
 	<!-- Deactivate Account Modal -->
 	<div class="modal fade" id="deactivate_account_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -245,3 +245,4 @@
         <script src="../assets/js/bootstrap.min.js"></script>
     </body>
 </html>
+<!-- written by Neema-->

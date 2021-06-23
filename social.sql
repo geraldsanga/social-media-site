@@ -77,7 +77,7 @@ CREATE TABLE `Post` (
   `title` varchar(50) NOT NULL,
   `picture` varchar(255) DEFAULT NULL,
   `description` text NOT NULL,
-  `date_created` date NOT NULL DEFAULT current_timestamp(),
+  `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int(11) NOT NULL,
   `likes` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -125,7 +125,7 @@ CREATE TABLE `User` (
   `username` varchar(50) DEFAULT NULL,
   `email` varchar(50) NOT NULL,
   `user_password` varchar(50) NOT NULL,
-  `signup_date` date NOT NULL DEFAULT current_timestamp(),
+  `signup_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `profile_picture` varchar(50) DEFAULT NULL,
   `number_of_posts` int(11) NOT NULL DEFAULT 0,
   `number_of_followers` int(11) NOT NULL DEFAULT 0,

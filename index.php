@@ -85,7 +85,7 @@ if(!isset($_SESSION['user_logged_in']))
                 </form>
             </div>
             <div class="col-lg-8">
-                <?php $mysqli = new mysqli("localhost", "root", "ROOT*123", "social") or die(mysqli_error($mysqli)); 
+                <?php $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli)); 
                     $result = $mysqli->query("SELECT p.id id, p.date_created date_created, p.title title, p.picture picture, u.username username, u.id user_id FROM Post as p INNER JOIN User as u ON p.user_id=u.id ORDER BY p.id DESC") or die($mysqli->error);
                     $email = $_SESSION['email'];
                     ?>

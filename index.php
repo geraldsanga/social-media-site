@@ -50,7 +50,8 @@ if(!isset($_SESSION['user_logged_in']))
     <!-- Page content-->
     <div class="container">
         <div class="row justify-content-center">
-            <?php if(isset($_SESSION['login_success_message']) || isset($_SESSION['post_sucess'])):?>
+    $_SESSION['post_delete_sucess'] = "Your Post was Successfully Deleted";
+            <?php if(isset($_SESSION['login_success_message']) || isset($_SESSION['post_sucess'])) || isset($_SESSION['post_delete_sucess']):?>
             <?php if(isset($_SESSION['login_success_message'])):?>
             <div class="alert alert-dismissible alert-success text-center" sytle="width:100%">
                 <?php echo $_SESSION['login_success_message']; 
@@ -61,6 +62,12 @@ if(!isset($_SESSION['user_logged_in']))
             <div class="alert alert-success text-center" sytle="width:100%">
                 <?php echo $_SESSION['post_sucess'];
                               unset($_SESSION['post_sucess']);
+                        ?>
+            </div>
+            <?php elseif(isset($_SESSION['post_delete_sucess'])): ?>
+            <div class="alert alert-danger text-center" sytle="width:100%">
+                <?php echo $_SESSION['post_delete_sucess'];
+                              unset($_SESSION['post_delete_sucess']);
                         ?>
             </div>
             <?php endif ?>

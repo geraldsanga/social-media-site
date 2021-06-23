@@ -72,20 +72,18 @@ if(!isset($_SESSION['user_logged_in']))
                         ?>
             </div>
             <?php endif ?>
-            <!-- Blog entries-->
-            <div class="col-lg-6">
-                <!-- Search widget-->
-                <form class="form-inline" action="views/search_result.php" method="POST">
-                    <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Eg: Programming"
-                            aria-label="Enter search term..." name="search_string" />
-                        <button class="btn btn-warning" id="button-search" type="submit"
-                            name="search_string_button">Go!</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-lg-8">
-                <?php $mysqli = new mysqli("localhost", "root", "ROOT*123", "social") or die(mysqli_error($mysqli)); 
+                <!-- Blog entries-->
+                <div class="col-lg-6">
+                    <!-- Search widget-->
+                    <form class="form-inline" action="views/search_result.php" method="POST">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Eg: Programming" aria-label="Enter search term..." name="search_string"/>
+                            <button class="btn btn-warning" id="button-search" type="submit" name="search_string_button">Go!</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-8">
+                    <?php $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli)); 
                     $result = $mysqli->query("SELECT p.id id, p.date_created date_created, p.title title, p.picture picture, u.username username, u.id user_id FROM Post as p INNER JOIN User as u ON p.user_id=u.id ORDER BY p.id DESC") or die($mysqli->error);
                     $email = $_SESSION['email'];
                     ?>

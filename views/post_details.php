@@ -1,7 +1,5 @@
 <?php
 	require_once '../config/config.php';
-	if(isset($_SESSION['user_logged_in'])){
-    
 	if(!isset($_SESSION['user_logged_in']))   
     header("location: register.php");
 
@@ -40,7 +38,12 @@
         <!-- Query to get the following: Post details, Number of likes and dislikes, check if the current user has liked this post or not-->
         <?php     $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 
                   $post_id = $_GET['post_id'];
-                  $post_result = $mysqli->query("SELECT p.id id, p.title title,p.picture picture, p.date_created date_created, p.description post_description, u.username username, u.id user_id FROM Post p JOIN User u ON p.user_id=u.id WHERE p.id = $post_id") or die($mysqli->error);
+                  $post_result = $mysqli->query("SELECT p.id, p.title,p.picture, p.date_created, p.description, u.username, u.id user_id , p_likes.likes, p_likes.dislikes, userLiked.active
+                                                FROM Post p 
+                                                JOIN User u ON p.user_id=u.id 
+                                                LEFT OUTER JOIN (SELECT post_id, sum(if(active = 1, 1,0)) likes, sum(if(active = 0,1,0)) dislikes from PostLike WHERE post_id = $post_id) as p_likes on p_likes.post_id = p.id
+                                                LEFT OUTER JOIN PostLike userLiked on userLiked.post_id = p.id and userLiked.user_id = $user_id
+                                                WHERE p.id = $post_id") or die($mysqli->error);
         ?>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -66,36 +69,16 @@
                             <p class="fs-5"><?php echo $post_row["description"];?></p>
                         </section>
                     </article>
-                    <!-- Second Query to find out if the user has liked the post or not -->
-                        <?php
-                            $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli));
-                            $post_id = $_GET['post_id'];
-                            $user_id = $_SESSION['user_id'];
-                            $like_results = $mysqli->query("SELECT COUNT(pl.id) as number_of_likes, CASE WHEN pl.active = 1 THEN 1 ELSE 0 END AS user_like, pl.user_id as user_id FROM PostLike as pl INNER JOIN User as u ON u.id=pl.user_id WHERE pl.post_id=$post_id AND pl.user_id=$user_id") or die($mysqli->error);
-                        ?>
                         <section class="mb-2">
                         <div class="mb-3">
-                        <?php while($like_row = $like_results->fetch_assoc()):?>
-                        <?php if($like_row["user_like"] && $like_row["user_id"] == $_SESSION["user_id"]):?>
-                        <div class="row">
-                            <div class="col-1">
-                                <a href="javascript:void"><img src="../assets/icons/liked.svg" style="width:30px; height:30px; color:red;"></a>
-                            </div>
-                            <div class="col-1">
-                                <a href="../controllers/unlike_post.php?post_id=<?php echo $post_row["id"]?>"><img src="../assets/icons/unlike.svg" style="width:30px; height:30px; color:red;"></a>
-                            </div>
-                        </div>
-                        <?php elseif(!$like_row["user_like"] && $like_row["user_id"] == $_SESSION["user_id"]): ?>
                             <div class="row">
-                            <div class="col-1">
-                                <a href="../controllers/like_post.php?post_id=<?php echo $post_row["id"]?>"><img src="../assets/icons/not_liked.svg" style="width:30px; height:30px; color:red;"></a>
+                                <div class="col-1">
+                                    <a href="../controllers/like_post.php?post_id=$post_row['id']"><img src="../assets/icons/not_liked.svg" style="width:30px; height:30px;"></a>
+                                </div>
+                                <div class="col-1">
+                                <a href="../controllers/unlike_post.php?post_id=$post_row['id']"><img src="../assets/icons/unlike.svg" style="width:30px; height:30px;"></a>
+                                </div>
                             </div>
-                            <div class="col-1">
-                                <a href="javascript:void"><img src="../assets/icons/unlike.svg" style="width:30px; height:30px; color:red;"></a>
-                            </div>
-                        </div>
-                        <?php endif ?>
-                        <?php endwhile ?>
                         </div>  
                             <?php if(isset($_SESSION["posted_comment"])):?>
                                 <div class="alert alert-success text-center" sytle="width:100%">

@@ -38,11 +38,11 @@
         <!-- Query to get the following: Post details, Number of likes and dislikes, check if the current user has liked this post or not-->
         <?php     $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli)); 
                   $post_id = $_GET['post_id'];
-                  $post_result = $mysqli->query("SELECT p.id, p.title,p.picture, p.date_created, p.description, u.username, u.id user_id , p_likes.likes, p_likes.dislikes, userLiked.active
+                  $post_result = $mysqli->query("SELECT p.id, p.title,p.picture, p.date_created, p.description, u.username, u.id user_id , p_likes.likes, p_likes.dislikes, user_liked.active, user_liked.inactive
                                                 FROM Post p 
                                                 JOIN User u ON p.user_id=u.id 
                                                 LEFT OUTER JOIN (SELECT post_id, sum(if(active = 1, 1,0)) likes, sum(if(active = 0,1,0)) dislikes from PostLike WHERE post_id = $post_id) as p_likes on p_likes.post_id = p.id
-                                                LEFT OUTER JOIN PostLike userLiked on userLiked.post_id = p.id and userLiked.user_id = $user_id
+                                                LEFT OUTER JOIN (SELECT post_id, user_id, active, inactive from PostLike WHERE post_id = $post_id and user_id = $user_id) as user_liked on user_liked.post_id = p.id 
                                                 WHERE p.id = $post_id") or die($mysqli->error);
         ?>
             <div class="row justify-content-center">
@@ -70,16 +70,43 @@
                         </section>
                     </article>
                         <section class="mb-2">
+                        <!-- if the user has liked the post -->
+                        <?php if($post_row["active"] && !$post_row["inactive"]):?>
                         <div class="mb-3">
                             <div class="row">
                                 <div class="col-1">
-                                    <a href="../controllers/like_post.php?post_id=$post_row['id']"><img src="../assets/icons/not_liked.svg" style="width:30px; height:30px;"></a>
+                                    <a href="javascript: void"><img src="../assets/icons/liked.svg" style="width:30px; height:30px;"></a>
                                 </div>
                                 <div class="col-1">
-                                <a href="../controllers/unlike_post.php?post_id=$post_row['id']"><img src="../assets/icons/unlike.svg" style="width:30px; height:30px;"></a>
+                                <a href="../controllers/unlike_post.php?post_id=<?php echo $post_row['id']?>"><img src="../assets/icons/unlike.svg" style="width:30px; height:30px;"></a>
                                 </div>
                             </div>
-                        </div>  
+                        </div>
+                        <!-- if the user has unliked the post -->
+                        <?php elseif(!$post_row["active"] && $post_row["inactive"]): ?>
+                            <div class="mb-3">
+                            <div class="row">
+                                <div class="col-1">
+                                    <a href="../controllers/like_post.php?post_id=<?php echo $post_row['id']?>"><img src="../assets/icons/not_liked.svg" style="width:30px; height:30px;"></a>
+                                </div>
+                                <div class="col-1">
+                                <a href="javascript: void"><img src="../assets/icons/unliked.svg" style="width:30px; height:30px;"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- The user hasn't interacted with the post yet -->
+                        <?php elseif(!$post_row["active"] && !$post_row["inactive"]): ?>
+                            <div class="mb-3">
+                            <div class="row">
+                                <div class="col-1">
+                                    <a href="../controllers/like_post.php?post_id=<?php echo $post_row['id']?>"><img src="../assets/icons/not_liked.svg" style="width:30px; height:30px;"></a>
+                                </div>
+                                <div class="col-1">
+                                <a href="javascript: void"><img src="../assets/icons/unlike.svg" style="width:30px; height:30px;"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?> 
                             <?php if(isset($_SESSION["posted_comment"])):?>
                                 <div class="alert alert-success text-center" sytle="width:100%">
                                     <?php
@@ -99,6 +126,7 @@
                                     <input name="post_id" value="<?php echo $post_row['id'] ?>" hidden></input>
                                     <button class="btn btn-primary mt-3" type="submit" name="post_comment">Post Comment</button>
                                 </form>
+                                <?php endwhile; ?>
                                 <!-- Query to get all the comments for the related post -->
                                 <?php
                                       $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli));
@@ -118,7 +146,6 @@
                             </div>
                         </div>
                     </section>
-                    <?php endwhile; ?>
                 </div>
                 <!-- Side widgets-->
             </div>

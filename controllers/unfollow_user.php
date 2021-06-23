@@ -1,7 +1,7 @@
 <?php
 
     require_once "../config/config.php";
-    $mysqli = new mysqli("localhost", "root", "", "social") or die(mysqli_error($mysqli)); 
+    $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli)); 
 
     if(isset($_GET["user_id"])){
         $following_user_id = $_SESSION["user_id"];

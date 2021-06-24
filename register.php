@@ -36,7 +36,7 @@ if(isset($_SESSION['user_logged_in'])){
 <html>
 
 <head>
-    <title>Ndugu Jamaa!</title>
+    <title>SoCiAlSiTe.com!</title>
     <link rel="stylesheet" type="text/css" href="assets/css/register_style.css">
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -50,7 +50,7 @@ if(isset($_SESSION['user_logged_in'])){
         <div class="login_box">
 
             <div class="login_header">
-                <h1>Ndugu Jamaa!</h1>
+                <h1>SoCiAlSiTe.com!</h1>
                 Login or sign up below!
             </div>
             <br>

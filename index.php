@@ -98,7 +98,7 @@ if(!isset($_SESSION['user_logged_in']))
                 <!-- Featured blog post-->
                 <?php while($row = $result->fetch_assoc()):?>
                 <div class="card mb-4">
-                    <a href="#!"><img class="card-img-top" src="<?php echo $row['picture']; ?>" alt="..." /></a>
+                    <a href="views/post_details.php?post_id=<?php echo $row["id"]?>"><img class="card-img-top" src="<?php echo $row['picture']; ?>" alt="..." /></a>
                     <div class="card-body">
                         <p class="card-text mb-0"><b><?php echo strtoupper($row['title']);?></b></p>
                         <div class="small text-muted"><?php echo $row['date_created'];?> </div>
@@ -112,7 +112,7 @@ if(!isset($_SESSION['user_logged_in']))
                 <?php endwhile; ?>
                 <!-- Nested row for non-featured blog posts-->
                 <!-- Pagination-->
-                <nav aria-label="Pagination">
+                <!-- <nav aria-label="Pagination">
                     <hr class="my-0" />
                     <ul class="pagination justify-content-center my-4">
                         <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"
@@ -124,7 +124,7 @@ if(!isset($_SESSION['user_logged_in']))
                         <li class="page-item"><a class="page-link" href="#!">15</a></li>
                         <li class="page-item"><a class="page-link" href="#!">Older</a></li>
                     </ul>
-                </nav>
+                </nav> -->
             </div>
             <!-- Side widgets-->
         </div>

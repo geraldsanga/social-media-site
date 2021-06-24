@@ -4,7 +4,7 @@
     header("location: register.php");
 
     $user_id = $_SESSION['user_id'];
-
+    $post_id = $_GET['post_id'];
 ?>
 <html lang="en">
     <head>
@@ -37,7 +37,6 @@
         <div class="container mt-5">
         <!-- Query to get the following: Post details, Number of likes and dislikes, check if the current user has liked this post or not-->
         <?php     $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli)); 
-                  $post_id = $_GET['post_id'];
                   $post_result = $mysqli->query("SELECT p.id, p.title,p.picture, p.date_created, p.description, u.username, u.id user_id , p_likes.likes, p_likes.dislikes, user_liked.active, user_liked.inactive
                                                 FROM Post p 
                                                 JOIN User u ON p.user_id=u.id 
@@ -132,13 +131,22 @@
                             </div>
                         </div>
                         <?php endif; ?> 
-                            <?php if(isset($_SESSION["posted_comment"])):?>
+                            <?php if(isset($_SESSION["posted_comment"]) || isset($_SESSION["comment_delete_success"])):?>
+                                <?php if(isset($_SESSION["posted_comment"])):?>
                                 <div class="alert alert-success text-center" sytle="width:100%">
-                                    <?php
+                                        <?php
                                             echo $_SESSION['posted_comment'];
                                             unset($_SESSION['posted_comment']);
-                                    ?>
+                                        ?>
                                 </div>
+                                <?php elseif(isset($_SESSION["comment_delete_success"])):?>
+                                    <div class="alert alert-success text-center" sytle="width:100%">
+                                        <?php
+                                            echo $_SESSION['comment_delete_success'];
+                                            unset($_SESSION['comment_delete_success']);
+                                        ?>
+                                    </div>
+                                <?php endif ?>
                             <?php endif ?>
                         </section>
                     <!-- Comments section-->
@@ -155,8 +163,7 @@
                                 <!-- Query to get all the comments for the related post -->
                                 <?php
                                       $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli));
-                                      $post_id = $_GET['post_id'];
-                                      $comment_result = $mysqli->query("SELECT c.comment, u.username FROM Comment as c INNER JOIN User as u ON u.id=c.user_id WHERE c.post_id=$post_id ORDER BY c.id DESC") or die($mysqli->error);
+                                      $comment_result = $mysqli->query("SELECT c.id, c.comment,c.user_id, u.username FROM Comment as c INNER JOIN User as u ON u.id=c.user_id WHERE c.post_id=$post_id ORDER BY c.id DESC") or die($mysqli->error);
                                 ?>
                                 <!-- Single comment-->
                                 <?php while($comment_row = $comment_result->fetch_assoc()):?>
@@ -165,6 +172,17 @@
                                     <div class="my-2 mx-3">
                                     <div class="fw-bold"><?php echo $comment_row["username"];?></div>
                                         <?php echo $comment_row["comment"];?>
+                                    </div>
+                                    <div>
+                                    <?php if($comment_row["user_id"] == $user_id):?>
+                                        <div class="col-1 mt-3">
+                                        <form action="../controllers/delete_comment.php" method="POST">
+                                            <input type="number" hidden value="<?php echo $post_id?>" name="post_id">
+                                            <input type="number" hidden value="<?php echo $comment_row["id"]?>" name="comment_id">
+                                            <button class="btn btn-danger" type="submit" name="delete_comment">Delete</button>
+                                        </form>
+                                        </div>
+                                    <?php endif ?>
                                     </div>
                                 </div>
                                 <?php endwhile ?>

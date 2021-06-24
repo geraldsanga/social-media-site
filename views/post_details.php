@@ -83,8 +83,8 @@
                                 <div class="col-1">
                                 <form action="../controllers/delete_post.php" method="POST">
                                 <input type="number" hidden value="<?php echo $post_row['id']?>" name="post_id">
+                                <input type="number" hidden value="<?php echo $post_row['user_id']?>" name="user_id">
                                 <button class="btn btn-danger" type="submit" name="delete_post">Delete</button>
-
                                 </form>
                                 </div>
                                 <?php endif?>
@@ -104,6 +104,7 @@
                                 <div class="col-1">
                                 <form action="../controllers/delete_post.php" method="POST">
                                 <input type="number" hidden value="<?php echo $post_row['id']?>" name="post_id">
+                                <input type="number" hidden value="<?php echo $post_row['user_id']?>" name="user_id">
                                 <button class="btn btn-danger" type="submit" name="delete_post">Delete</button>
                                 </form>
                                 </div>
@@ -124,6 +125,7 @@
                                 <div class="col-1">
                                 <form action="../controllers/delete_post.php" method="POST">
                                 <input type="number" hidden value="<?php echo $post_row['id']?>" name="post_id">
+                                <input type="number" hidden value="<?php echo $post_row['user_id']?>" name="user_id">
                                 <button class="btn btn-danger" type="submit" name="delete_post">Delete</button>
                                 </form>
                                 </div>

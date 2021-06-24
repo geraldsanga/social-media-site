@@ -40,7 +40,7 @@ header("location: register.php");
                 <?php 
                  $search_string = $_POST["search_string"];
                   $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli)); 
-                  $result = $mysqli->query("SELECT * FROM Post WHERE title LIKE '%$search_string%' ORDER BY id DESC") or die($mysqli->error);
+                  $result = $mysqli->query("SELECT * FROM Post WHERE title LIKE '%$search_string%' OR description LIKE '%$search_string%' ORDER BY id DESC") or die($mysqli->error);
                   $num_rows = mysqli_num_rows($result);
                   if($num_rows > 0): 
                 ?>

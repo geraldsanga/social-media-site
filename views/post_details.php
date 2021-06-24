@@ -80,6 +80,15 @@
                                 <div class="col-1">
                                 <a href="../controllers/unlike_post.php?post_id=<?php echo $post_row['id']?>"><img src="../assets/icons/unlike.svg" style="width:30px; height:30px;"></a>
                                 </div>
+                                <?php if($post_row["user_id"] == $user_id):?>
+                                <div class="col-1">
+                                <form action="../controllers/delete_post.php" method="POST">
+                                <input type="number" hidden value="<?php echo $post_row['id']?>" name="post_id">
+                                <button class="btn btn-danger" type="submit" name="delete_post">Delete</button>
+
+                                </form>
+                                </div>
+                                <?php endif?>
                             </div>
                         </div>
                         <!-- if the user has unliked the post -->
@@ -92,6 +101,14 @@
                                 <div class="col-1">
                                 <a href="javascript: void"><img src="../assets/icons/unliked.svg" style="width:30px; height:30px;"></a>
                                 </div>
+                                <?php if($post_row["user_id"] == $user_id):?>
+                                <div class="col-1">
+                                <form action="../controllers/delete_post.php" method="POST">
+                                <input type="number" hidden value="<?php echo $post_row['id']?>" name="post_id">
+                                <button class="btn btn-danger" type="submit" name="delete_post">Delete</button>
+                                </form>
+                                </div>
+                                <?php endif?>
                             </div>
                         </div>
                         <!-- The user hasn't interacted with the post yet -->
@@ -104,6 +121,14 @@
                                 <div class="col-1">
                                 <a href="javascript: void"><img src="../assets/icons/unlike.svg" style="width:30px; height:30px;"></a>
                                 </div>
+                                <?php if($post_row["user_id"] == $user_id):?>
+                                <div class="col-1">
+                                <form action="../controllers/delete_post.php" method="POST">
+                                <input type="number" hidden value="<?php echo $post_row['id']?>" name="post_id">
+                                <button class="btn btn-danger" type="submit" name="delete_post">Delete</button>
+                                </form>
+                                </div>
+                                <?php endif?>
                             </div>
                         </div>
                         <?php endif; ?> 

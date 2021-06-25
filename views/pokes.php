@@ -23,7 +23,7 @@ if(!isset($_SESSION['user_logged_in']))
     <!-- Responsive navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.php">SoCiAlSiTe.com!</a>
+            <a class="navbar-brand" href="../index.php">SoCiAlSiTe.com!</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -42,48 +42,53 @@ if(!isset($_SESSION['user_logged_in']))
     <!-- Page content-->
     <div class="container">
         <div class="row justify-content-center mt-5">
-            <?php if(isset($_SESSION['login_success_message']) || isset($_SESSION['post_sucess']) || isset($_SESSION['post_delete_sucess'])):?>
-            <?php if(isset($_SESSION['login_success_message'])):?>
-            <div class="alert alert-dismissible alert-success text-center" sytle="width:100%">
-                <?php echo $_SESSION['login_success_message']; 
-                                  unset($_SESSION['login_success_message']);
-                            ?>
-            </div>
-            <?php elseif(isset($_SESSION['post_sucess'])): ?>
-            <div class="alert alert-success text-center" sytle="width:100%">
-                <?php echo $_SESSION['post_sucess'];
-                              unset($_SESSION['post_sucess']);
-                        ?>
-            </div>
-            <?php elseif(isset($_SESSION['post_delete_sucess'])): ?>
+            <?php if(isset($_SESSION['poke_deleted'])): ?>
             <div class="alert alert-danger text-center" sytle="width:100%">
-                <?php echo $_SESSION['post_delete_sucess'];
-                              unset($_SESSION['post_delete_sucess']);
-                        ?>
-            </div>
-            <?php endif ?>
-            <?php endif ?>
-            <?php if(isset($_SESSION['empty_search_error'])): ?>
-            <div class="alert alert-danger text-center" sytle="width:100%">
-                <?php echo $_SESSION['empty_search_error'];
-                              unset($_SESSION['empty_search_error']);
-                        ?>
+                <?php echo $_SESSION['poke_deleted'];
+                      unset($_SESSION['poke_deleted']);
+                ?>
             </div>
             <?php endif ?>
             <!-- Blog entries-->
             <div class="col-lg-8">
             <?php $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli)); 
-                $result = $mysqli->query("SELECT u.username, up.date_created, u.id FROM UserPoke up
+                $result = $mysqli->query("SELECT up.id, up.date_created, u.id user_id, u.username FROM UserPoke up
                                           JOIN User u on up.poker_id = u.id
                                           WHERE up.pokee_id = $user_id") or die($mysqli->error);
                 ?>
             <!-- Featured blog post-->
                 <div class="card" >
+                
+                    <?php if(mysqli_num_rows($result) > 0): ?>
+                        <div class="card-header">
+                            <h3>Your Pokes</h3>
+                        </div>
                     <ul class="list-group list-group-flush">
                         <?php while($row = $result->fetch_assoc()):?>
-                        <li class="list-group-item"><div class="fst-italic mb-2"><a style="text-decoration: none;" href="others_user_account.php?user_id=<?php echo $row["id"];?>"><?php echo $row["username"];?></a> poked you on <?php echo $row["date_created"];?></div></li>
+                        <li class="list-group-item"><div class="row fst-italic mb-2">
+                        <div class="col-10">
+                            <a style="text-decoration: none;" href="others_user_account.php?user_id=<?php echo $row["user_id"];?>"><?php echo $row["username"];?></a> poked you on <?php echo $row["date_created"];?>
+                        </div>
+                        <div class="col">
+                        <form action="../controllers/delete_poke.php" method="POST">
+                            <input type="number" hidden value="<?php echo $row['id']?>" name="poke_id">
+                            <button class="btn btn-danger" type="submit" name="delete_poke">Delete</button>
+                        </form>
+                        </div>
+                        </li>
                         <?php endwhile; ?>
                     </ul>
+                    <?php elseif(mysqli_num_rows($result) == 0 || mysqli_num_rows($result) < 0):?>
+                        <div class="card-header">
+                            <h3>You have no Pokes.</h3>
+                        </div>
+                        <li class="list-group-item"><div class="row fst-italic mb-2">
+                            <div class="col-10">
+                                <p>No one has poked you yet</p>
+                            </div>
+                        </div>
+                        </li>
+                    <?php endif ?>
                 </div>
             </div>
             <!-- Side widgets-->

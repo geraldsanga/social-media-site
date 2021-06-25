@@ -26,6 +26,7 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="create_post.php">Post</a></li>
+                        <li class="nav-item"><a class="nav-link" href="pokes.php">Pokes</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="user_account.php">Account</a></li>
                     </ul>
                 </div>
@@ -36,6 +37,16 @@
     <?php if(isset($_GET['user_id'])): ?>
 		<div class="main-body">
 			<div class="row">
+				<?php if(isset($_SESSION["poking_success"])): ?>
+				<div class="col-lg-12">
+					<div class="alert alert-success text-center" sytle="width:100%">
+						<?php
+							echo $_SESSION['poking_success'];
+							unset($_SESSION['poking_success']);
+						?>
+					</div>
+				</div>
+				<?php endif ?>
 				<div class="col-lg-12">
                 <?php
                     $user_id = $_GET['user_id'];
@@ -53,9 +64,10 @@
 									<h4><?php echo $row['first_name']. ' ' . $row['last_name']?></h4>
 									<?php endif; ?>
 									<p class="text-muted font-size-sm"><?php if($row['address']){echo $row['address'];}?></p>
-									<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#deactivate_account_modal">
-									Follow
-									</button>
+									<form action="../controllers/poke_user.php" method="POST">
+										<input type="number" hidden value="<?php echo $row['id']?>" name="user_id">
+										<button class="btn btn-danger" type="submit" name="poke_user">Poke</button>
+									</form>
 								</div>
 							</div>
 							<hr class="my-4">

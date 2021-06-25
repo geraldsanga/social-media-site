@@ -41,32 +41,28 @@ header("location: register.php");
                 <?php 
                  $search_string = $_POST["search_string"];
                   $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli)); 
-                  $result = $mysqli->query("SELECT * FROM Post WHERE title LIKE '%$search_string%' OR description LIKE '%$search_string%' ORDER BY id DESC") or die($mysqli->error);
-                  $num_rows = mysqli_num_rows($result);
-                  if($num_rows > 0): 
+                  $post_result = $mysqli->query("SELECT * FROM Post WHERE title LIKE '%$search_string%' OR description LIKE '%$search_string%' ORDER BY id DESC") or die($mysqli->error);
+                  $post_num_rows = mysqli_num_rows($post_result);
+                  if($post_num_rows > 0): 
                 ?>
                  <div class="my-2 col-lg-8">
                 <h3>Posts related to: '<?php echo $_POST["search_string"]?>'</h3>
                 </div>
                 <div class="col-lg-8 mt-5">
                     <!-- Featured blog post-->
-                    <?php while($row = $result->fetch_assoc()):?>
+                    <?php while($post_row = $post_esult->fetch_assoc()):?>
                     <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="../<?php echo $row['picture']; ?>" alt="..." /></a>
+                        <a href="#!"><img class="card-img-top" src="../<?php echo $post_row['picture']; ?>" alt="..." /></a>
                         <div class="card-body">
-                            <p class="card-text mb-0"><b><?php echo strtoupper($row['title']);?></b></p>
-                            <div class="small text-muted"><?php echo $row['date_created'];?> </div>
-                            <div class="small">Posted by: <b><a style="text-decoration: none;" href="others_user_account.php?user_id=<?php echo $row["user_id"]?>"><?php echo $row['username'];?></a></b></div>
-                            <a class="btn btn-primary" href="../views/post_details.php?post_id=<?php echo $row["id"]?>">Read more →</a>
+                            <p class="card-text mb-0"><b><?php echo strtoupper($post_row['title']);?></b></p>
+                            <div class="small text-muted"><?php echo $post_row['date_created'];?> </div>
+                            <div class="small">Posted by: <b><a style="text-decoration: none;" href="others_user_account.php?user_id=<?php echo $post_row["user_id"]?>"><?php echo $post_row['username'];?></a></b></div>
+                            <a class="btn btn-primary" href="../views/post_details.php?post_id=<?php echo $post_row["id"]?>">Read more →</a>
                         </div>
                     </div>
                     <?php endwhile; ?>
                     <!-- Nested row for non-featured blog posts-->
                     <!-- Pagination-->
-                </div>
-                <?php else: ?>
-                <div class="my-2 col-lg-12">
-                <h3 style="color:red;">Sorry No Post matches your search '<?php echo $search_string?>'</h3>
                 </div>
                 <?php endif ?>
                 <!-- User Search Results -->
@@ -90,9 +86,10 @@ header("location: register.php");
                     </div>
                     <?php endwhile; ?>
                 </div>
-                <?php else: ?>
-                <div class="my-2 col-lg-12">
-                <h3 style="color:red;">Sorry No User matches your search '<?php echo $search_string?>'</h3>
+                <?php endif ?>
+                <?php if($user_num_rows <= 0 || $post_num_rows <= 0 ): ?>
+                <div class="my-2 col-lg-8">
+                    <h3>Sorry nothing matches your search '<?php echo $_POST["search_string"] ?>'</h3>
                 </div>
                 <?php endif ?>
             </div>

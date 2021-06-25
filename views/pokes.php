@@ -97,7 +97,7 @@ if(!isset($_SESSION['user_logged_in']))
     <!-- Footer-->
     <footer class="py-5 bg-dark" style="margin-top:700px;">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Social Media Site 2021</p>
+            <p class="m-0 text-center text-white">Copyright &copy; SoCiAlSiTe.com! 2021</p>
         </div>
     </footer>
     <!-- Bootstrap core JS-->

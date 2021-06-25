@@ -87,7 +87,7 @@ header("location: register.php");
                     <?php endwhile; ?>
                 </div>
                 <?php endif ?>
-                <?php if($user_num_rows <= 0 || $post_num_rows <= 0 ): ?>
+                <?php if($user_num_rows <= 0 && $post_num_rows <= 0 ): ?>
                 <div class="my-2 col-lg-8">
                     <h3>Sorry nothing matches your search '<?php echo $_POST["search_string"] ?>'</h3>
                 </div>

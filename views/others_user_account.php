@@ -2,6 +2,8 @@
 	require_once '../config/config.php';
 	if(!isset($_SESSION['user_logged_in']))   
     header("location: register.php");
+	if($_GET["user_id"] == $_SESSION["user_id"])
+	header("location: user_account.php")
 ?>
 <html lang="en">
     <head>

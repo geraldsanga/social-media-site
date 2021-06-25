@@ -84,8 +84,8 @@ if(!isset($_SESSION['user_logged_in']))
                 <!-- Search widget-->
                 <form class="form-inline" action="views/search_result.php" method="POST">
                     <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Eg: Programming"
-                            aria-label="Enter search term..." name="search_string" />
+                        <input class="form-control" type="text" placeholder="Search for user or keyword.."
+                            aria-label="Enter search term..." name="search_string" required/>
                         <button class="btn btn-warning" id="button-search" type="submit"
                             name="search_string_button">Go!</button>
                     </div>

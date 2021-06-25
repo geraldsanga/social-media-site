@@ -37,7 +37,7 @@ header("location: register.php");
     <?php if(isset($_POST['search_string_button'])): ?>
         <div class="container">
             <div class="row justify-content-center">
-                <!-- Blog entries-->
+                <!-- Blog Search Results-->
                 <?php 
                  $search_string = $_POST["search_string"];
                   $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli)); 
@@ -65,11 +65,36 @@ header("location: register.php");
                     <!-- Pagination-->
                 </div>
                 <?php else: ?>
-                <div class="my-2 col-lg-6">
-                <h3 style="color:red;">Sorry Nothing matches your search '<?php echo $search_string?>'</h3>
+                <div class="my-2 col-lg-12">
+                <h3 style="color:red;">Sorry No Post matches your search '<?php echo $search_string?>'</h3>
                 </div>
                 <?php endif ?>
-               
+                <!-- User Search Results -->
+                <?php 
+                 $search_string = $_POST["search_string"];
+                  $mysqli = new mysqli("localhost", "root", "Root*123", "social") or die(mysqli_error($mysqli)); 
+                  $user_result = $mysqli->query("SELECT * FROM User WHERE username LIKE '%$search_string%' OR first_name LIKE '%$search_string%' OR last_name LIKE '%$search_string%' ORDER BY id DESC") or die($mysqli->error);
+                  $user_num_rows = mysqli_num_rows($user_result);
+                  if($user_num_rows > 0): 
+                ?>
+                 <div class="my-2 col-lg-8">
+                <h3>Users related to: '<?php echo $_POST["search_string"]?>'</h3>
+                </div>
+                <div class="col-lg-8 mt-5">
+                    <!-- Featured blog post-->
+                    <?php while($row = $user_result->fetch_assoc()):?>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                        <img src="../assets/images/profile_pics/defaults/head_carrot.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="50">  <a style="text-decoration: none;" href="others_user_account.php?user_id=<?php echo $row["id"];?>"><?php echo $row["username"];?></a>
+                        </div>
+                    </div>
+                    <?php endwhile; ?>
+                </div>
+                <?php else: ?>
+                <div class="my-2 col-lg-12">
+                <h3 style="color:red;">Sorry No User matches your search '<?php echo $search_string?>'</h3>
+                </div>
+                <?php endif ?>
             </div>
         </div>
     <?php endif ?>
